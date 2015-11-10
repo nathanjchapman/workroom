@@ -1,5 +1,5 @@
 """
-WSGI config for timekeeper project.
+WSGI config for astelle project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "timekeeper.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "astelle.settings")
 
 application = get_wsgi_application()
