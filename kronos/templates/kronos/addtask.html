@@ -1,4 +1,4 @@
-{% extends 'kronos/base.html' %}
+{% extends 'base.html' %}
 
 {% block stylesheets %}
     {% load staticfiles %}
@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-<form class="task-section">
+<form method="post" action="{% url 'kronos:addtask' timecard_id %}">
     {% csrf_token %}
     <input type="hidden" name="employee" value="{{ user.id }}">
-    
+
     <h3>Add task</h3>
     <section>
         <h4>General info</h4>
@@ -26,7 +26,7 @@
                 <option value="" selected="selected">-------</option>
                 {% if projects %}
                     {% for p in projects %}
-                        <option value="{{ p.iq }}">{{ p.name }}</option>
+                        <option value="{{ p.id }}">{{ p.name }}</option>
                     {% endfor %}
                 {% endif %}
             </select>
@@ -177,4 +177,8 @@
 
 {% block javascripts %}
     <script src="{% static 'js/datepickr.js' %}"></script>
+    <script>
+        // Custom date format
+        datepickr('.datepickr', { dateFormat: 'Y-m-d' });
+    </script>
 {% endblock %}

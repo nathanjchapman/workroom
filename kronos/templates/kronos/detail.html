@@ -4,26 +4,24 @@
     <section>
         <h1>Timecard</h1>
         <h2>{{ timecard.pay_period_start }} through {{ timecard.pay_period_end }}</h2>
-    </section>
 
-    <section>
-        <h5>Employee: {{ user.first_name }} {{ user.last_name }}</h5>
+        <h3>Employee: {{ user.first_name }} {{ user.last_name }}</h3>
         {% if tasks %}
             <table>
                 <thead>
-                    <tr>
+                    <tr class="task">
                         <th>Date</th>
                         <th>Project</th>
                         <th>Description</th>
                         <th>Start time</th>
                         <th>End time</th>
-                        <th>Labor item number</th>
-                        <th>LI class</th>
+                        <th>LI number</th>
+                        <th>L&I class</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for task in tasks %}
-                    <tr>
+                    <tr class="task">
                         <td>{{ task.date }}</td>
                         <td>{{ task.project }}</td>
                         <td><a href="{% url 'kronos:detail' task.id %}">{{ task.description }}</a></td>
@@ -38,6 +36,9 @@
         {% else %}
             <p><em>You have no tasks</em></p>
         {% endif %}
+        <p>
+            <a href="{% url 'kronos:addtask' timecard.id %}">+ Add new task</a>
+        </p>
     </section>
     <section>
         <form method="post" action="{% url 'kronos:update' timecard.id %}">
