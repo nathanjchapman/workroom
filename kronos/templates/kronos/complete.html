@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Wallyworks</h1>
+
+    <section>
+        <h3>Your completed timecards</h3>
+        {% if timecards %}
+            <ul>
+            {% for tc in timecards %}
+                <li>
+                    <a href="{% url 'kronos:detail' tc.id %}">{{ tc.pay_period_start }} through {{ tc.pay_period_end }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>You have no completed timecards</em></p>
+        {% endif %}
+    </section>
+{% endblock %}

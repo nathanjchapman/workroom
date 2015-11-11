@@ -19,6 +19,7 @@ from django.shortcuts import render
 
 urlpatterns = [
     url(r'^kronos/', include('kronos.urls', namespace="kronos")),
+    url(r'^hq/', include('hq.urls', namespace="hq")),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

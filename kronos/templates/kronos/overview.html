@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Wallyworks</h1>
+    <h1>Timecards</h1>
 
     <section>
         <h3>Your current timecard</h3>
@@ -30,11 +30,11 @@
             {% endfor %}
             </ul>
         {% else %}
-            <p><em>You have no current timecard</em></p>
+            <p><em>You have no completed timecards</em></p>
         {% endif %}
 
         <p>
-            <a href="{% url 'kronos:completed' %}">See all completed timecards</a>
+            <a href="{% url 'kronos:complete' %}">See all completed timecards</a>
         </p>
     </section>
 {% endblock %}
