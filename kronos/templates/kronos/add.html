@@ -1,0 +1,39 @@
+{% extends 'kronos/base.html' %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datepickr.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <h1>Add a new Timecard</h1>
+
+    <section>
+        <form method="post" action="{% url 'kronos:add timecard' %}">
+            {% csrf_token %}
+            <input type="hidden" name="employee" value="{{ user.id }}">
+            <p>
+                <label for="pay_period_start">Pay period start:</label>
+                <br>
+                <input name="pay_period_start" class="datepickr" placeholder="Jan 1, 2000">
+            </p>
+
+            <p>
+                <label for="pay_period_end">Pay period end:</label>
+                <br>
+                <input name="pay_period_end" class="datepickr" placeholder="Jan 1, 2000">
+            </p>
+            <p>
+                <input type="submit" value="Add this Timecard">
+            </p>
+        </form>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/datepickr.js' %}"></script>
+    <script>
+    // Custom date format
+    datepickr('.datepickr', { dateFormat: 'Y-m-d' });
+</script>
+{% endblock %}

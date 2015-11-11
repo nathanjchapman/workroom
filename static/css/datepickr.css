@@ -1,0 +1,116 @@
+.datepickr-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.datepickr-calendar {
+	font-family: 'Andada', sans-serif;
+	font-size: 1em;
+	background-color: #fff;
+	color: #111111;
+	border: 4px solid #8aa12d;
+	padding: 2px;
+	display: none;
+	position: absolute;
+    top: 0;
+	left: 0;
+	z-index: 100;
+}
+
+.open .datepickr-calendar {
+    display: block;
+}
+
+.datepickr-calendar .datepickr-months {
+	color: #111111;
+	padding: 2px;
+	text-align: center;
+    font-size: 120%;
+}
+
+.datepickr-calendar .datepickr-prev-month,
+.datepickr-calendar .datepickr-next-month {
+	color: #111111;
+	margin: 0;
+	text-decoration: none;
+	padding: 0.1em 0.4em 0.2em 0.4em;
+	cursor: pointer;
+}
+
+.datepickr-calendar .datepickr-prev-month {
+	float: left;
+}
+
+.datepickr-calendar .datepickr-next-month {
+	float: right;
+}
+
+.datepickr-calendar .datepickr-current-month {
+	padding: 0 .5em;
+}
+
+.datepickr-calendar .datepickr-prev-month:hover,
+.datepickr-calendar .datepickr-next-month:hover {
+	background-color: #8aa12d;
+	color: #fff;
+}
+
+.datepickr-calendar table {
+	border-collapse: collapse;
+	padding: 0;
+	width: 100%;
+}
+
+.datepickr-calendar thead {
+    font-size: 90%;
+}
+
+.datepickr-calendar th,
+.datepickr-calendar td {
+    width: 14.3%;
+}
+
+.datepickr-calendar th {
+	text-align: center;
+    padding: 5px;
+}
+
+.datepickr-calendar td {
+	text-align: right;
+	margin: 0;
+}
+
+.datepickr-calendar .datepickr-day {
+	display: block;
+	color: #111111;
+	background-color: #fff;
+	border: 3px solid #ccc;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.datepickr-calendar .datepickr-day:hover {
+	color: #fff;
+	background-color: #8aa12d;
+	border: 3px solid #8aa12d;
+}
+
+.datepickr-calendar .today .datepickr-day {
+	background-color: #f39c12;
+	border: 3px solid #f39c12;
+	color: #fff;
+}
+
+.datepickr-calendar .selected .datepickr-day {
+	background-color: #8aa12d;
+	border-color: #8aa12d;
+	color: #ffffff;
+}
+
+.datepickr-calendar .disabled .datepickr-day,
+.datepickr-calendar .disabled .datepickr-day:hover {
+    background-color: #eee;
+    border: 3px dotted #ccc;
+    color: #bbb;
+    cursor: default;
+}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Wallyworks</h1>
+
+    <section>
+        <h3>All timecards</h3>
+        {% if timecards %}
+            <ul>
+            {% for tc in timecards %}
+                <li>{{ tc.employee.first_name }} {{ tc.employee.last_name }}
+                    <a href="{% url 'kronos:detail' tc.id %}">
+                        {{ tc.pay_period_start }} to {{ tc.pay_period_end }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>No timecards</em></p>
+        {% endif %}
+    </section>
+{% endblock %}
