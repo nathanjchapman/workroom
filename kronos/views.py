@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 def overview(request):
     tcs = Timecard.objects.all().filter(complete=False)
-    return render(request, 'kronos/timecards/overview.html', {'timecards': tcs})
+    return render(request, 'kronos/overview.html', {'timecards': tcs})
 
 def add_timecard(request):
     # if POST process data and create timecard
@@ -26,7 +26,7 @@ def add_timecard(request):
         return HttpResponseRedirect('/kronos/')
 
     else:
-        return render(request, 'kronos/timecards/add.html')
+        return render(request, 'kronos/addtimecard.html')
 
 def detail(request, timecard_id):
     try:
@@ -34,7 +34,7 @@ def detail(request, timecard_id):
         tasks = Task.objects.all().filter(timecard=tc).order_by('date')
     except Timecard.DoesNotExist:
         raise Http404("Timecard does not exist.")
-    return render(request, 'kronos/timecards/detail.html', {
+    return render(request, 'kronos/detail.html', {
         'timecard': tc,
         'tasks': tasks
         })
@@ -45,7 +45,7 @@ def review(request, timecard_id):
         tc = Timecard.objects.get(pk=timecard_id)
     except Timecard.DoesNotExist:
         raise Http404("Timecard does not exist.")
-    return render(request, 'kronos/timecards/review.html', {'timecard': tc})
+    return render(request, 'kronos/review.html', {'timecard': tc})
 
 def completed(request):
     pass
