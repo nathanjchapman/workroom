@@ -32,4 +32,8 @@
 
 {% block javascripts %}
     <script src="{% static 'js/datepickr.js' %}"></script>
+    <script>
+    // Custom date format
+    datepickr('.datepickr', { dateFormat: 'Y-m-d' });
+</script>
 {% endblock %}

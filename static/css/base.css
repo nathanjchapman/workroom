@@ -27,7 +27,6 @@ h4 {
     font-weight: inherit;
     line-height: 1.2;
 
-    color: #8aa12d;
     }
 
 h1 {
@@ -148,15 +147,12 @@ table {
     width: 100%;
     }
 
-td,
-th {
+.tasks td,
+.tasks th {
     font-size: 0.75em;
     border: 1px solid #dddddd;
     padding: 2px 10px;
     }
-th {
-    font-weight: bold;
-}
 
 
 /* Major Elements */

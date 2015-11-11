@@ -3,9 +3,16 @@ from django.shortcuts import render
 from .models import Timecard, Task
 from django.contrib.auth.models import User
 
+from hq import models as hq_models
+
 def overview(request):
-    tcs = Timecard.objects.all().filter(complete=False)
-    return render(request, 'kronos/timecards/overview.html', {'timecards': tcs})
+    tcss = Timecard.objects.all()
+    tcs = tcss.filter(complete=False)
+    ctcs = tcss.filter(complete=True)[:3]
+    return render(request, 'kronos/overview.html', {
+        'timecards': tcs,
+        'complete_timecards': ctcs
+        })
 
 def add_timecard(request):
     # if POST process data and create timecard
@@ -26,7 +33,7 @@ def add_timecard(request):
         return HttpResponseRedirect('/kronos/')
 
     else:
-        return render(request, 'kronos/timecards/add.html')
+        return render(request, 'kronos/addtimecard.html')
 
 def detail(request, timecard_id):
     try:
@@ -34,7 +41,7 @@ def detail(request, timecard_id):
         tasks = Task.objects.all().filter(timecard=tc).order_by('date')
     except Timecard.DoesNotExist:
         raise Http404("Timecard does not exist.")
-    return render(request, 'kronos/timecards/detail.html', {
+    return render(request, 'kronos/detail.html', {
         'timecard': tc,
         'tasks': tasks
         })
@@ -45,7 +52,7 @@ def review(request, timecard_id):
         tc = Timecard.objects.get(pk=timecard_id)
     except Timecard.DoesNotExist:
         raise Http404("Timecard does not exist.")
-    return render(request, 'kronos/timecards/review.html', {'timecard': tc})
+    return render(request, 'kronos/review.html', {'timecard': tc})
 
 def completed(request):
     pass
@@ -53,7 +60,47 @@ def completed(request):
 def update(request, timecard_id):
     pass
 
+def add_task(request, timecard_id):
+    # if POST process data and create timecard
+    if request.method == "POST":
+        employee = request.POST["employee"]
+        date = request.POST["date"]
+        pr = request.POST["project"]
+        description = request.POST["description"]
+        start_time = request.POST["start_time"]
+        end_time = request.POST["end_time"]
+        labor_item_number = request.POST["labor_item_number"]
+        li_class = request.POST["li_class"]
+
+        project = hq_models.Project.objects.get(id=pr)
+        user = User.objects.get(id=employee)
+        timecard = Timecard.objects.get(id=timecard_id)
+
+
+        t = Task.objects.create(
+            employee=user,
+            timecard=timecard,
+            date = date,
+            project = project,
+            description = description,
+            start_time = start_time,
+            end_time = end_time,
+            labor_item_number = labor_item_number,
+            li_class = li_class
+            )
+        t.save()
+
+        return HttpResponseRedirect('/kronos/')
+
+    else:
+        p = hq_models.Project.objects.all()
+        return render(request, 'kronos/addtask.html', {
+            'projects': p,
+            'timecard_id': timecard_id
+            })
+
 #def edit(request, timecard_id):
 
 
-#def delete(request, timecard_id):
+def delete(request, timecard_id):
+    pass
