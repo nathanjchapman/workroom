@@ -4,7 +4,7 @@ html {
 
 body {
     max-width: 8.5in;
-    margin: 1in;
+    margin: 1em;
 
 
     background-color: #fffff8;
@@ -55,6 +55,7 @@ h5 {
 a {
     color: #8aa12d;
     cursor: pointer;
+    white-space: nowrap;
     }
 
 small {
@@ -63,6 +64,10 @@ small {
 hr {
     margin: 0;
     border: 2px solid #dddddd;
+    }
+
+blockquote {
+    font-family: serif;
     }
 
 
