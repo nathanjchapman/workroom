@@ -49,7 +49,7 @@ datepickr.init = function (element, instanceConfig) {
     'use strict';
     var self = this,
         defaultConfig = {
-            dateFormat: 'F j, Y',
+            dateFormat: 'YYYY-MM-DD',
             altFormat: null,
             altInput: null,
             minDate: null,

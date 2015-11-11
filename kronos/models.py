@@ -18,7 +18,7 @@ class Timecard(models.Model):
 class Task(models.Model):
     timecard = models.ForeignKey(Timecard)
     employee = models.ForeignKey(User)
-    date = models.DateField(auto_now=True)
+    date = models.DateField()
     project = models.ForeignKey('hq.Project')
     description = models.TextField()
     start_time = models.TimeField()

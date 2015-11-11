@@ -47,6 +47,12 @@ h4 {
     font-size: 1.25em;
     }
 
+h5 {
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    font-style: italic;
+    }
+
 a {
     color: #8aa12d;
     cursor: pointer;
@@ -135,6 +141,22 @@ textarea {
 ::-ms-input-placeholder {
     font-style: italic;
     }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    }
+
+td,
+th {
+    font-size: 0.75em;
+    border: 1px solid #dddddd;
+    padding: 2px 10px;
+    }
+th {
+    font-weight: bold;
+}
 
 
 /* Major Elements */
