@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from hq import models as hq_models
 
 # /kronos/
-# Overview of all timecards
+# Overview of kronos
 def overview(request):
     tcss = Timecard.objects.all().filter(employee=request.user)
     tcs = tcss.filter(complete=False)
@@ -16,7 +16,7 @@ def overview(request):
         })
 
 # /kronos/timecard/add/
-def add_timecard(request):
+def timecard_add(request):
     # if POST process data and create timecard
     if request.method == "POST":
         pay_period_start = request.POST["pay_period_start"]
@@ -33,23 +33,23 @@ def add_timecard(request):
         return HttpResponseRedirect('/kronos/')
 
     else:
-        return render(request, 'kronos/addtimecard.html')
+        return render(request, 'kronos/timecard_add.html')
 
 # /kronos/1/
-def detail(request, timecard_id):
+def timecard_detail(request, timecard_id):
     try:
         tc = Timecard.objects.get(pk=timecard_id)
         tasks = Task.objects.all().filter(timecard=tc).order_by('date')
     except Timecard.DoesNotExist:
         raise Http404("Timecard does not exist.")
-    return render(request, 'kronos/detail.html', {
+    return render(request, 'kronos/timecard_detail.html', {
         'timecard': tc,
         'tasks': tasks
         })
 
 # /kronos/1/review
 # have to be a manager
-def review(request, timecard_id):
+def timecard_review(request, timecard_id):
     # if POST process data
     if request.method == "POST":
         tc = Timecard.objects.get(pk=timecard_id)
@@ -64,34 +64,34 @@ def review(request, timecard_id):
             tasks = Task.objects.all().filter(timecard=tc).order_by('date')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
-        return render(request, 'kronos/review.html', {
+        return render(request, 'kronos/timecard_review.html', {
             'timecard': tc,
             'tasks': tasks
             })
 
 # /kronos/complete/
 # return a list of completed timecards
-def complete(request):
+def timecard_complete(request):
     try:
         tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True)
     except Timecard.DoesNotExist:
         raise Http404("No timecards does not exist.")
-    return render(request, 'kronos/complete.html', {'timecards': tc})
+    return render(request, 'kronos/timecard_complete.html', {'timecards': tc})
 
 # /kronos/timecards/
 # return a list of all timecards
-def timecards(request):
+def timecard_index(request):
     try:
         tcs = Timecard.objects.order_by('-pay_period_start')
     except Timecard.DoesNotExist:
         raise Http404("Timecards do not exist.")
     return render(request, 'kronos/timecard_index.html', {'timecards': tcs})
 
-def update(request, timecard_id):
+def timecard_update(request, timecard_id):
     pass
 
 # /kronos/task/add/
-def add_task(request, timecard_id):
+def task_add(request, timecard_id):
     # if POST process data and create timecard
     if request.method == "POST":
         employee = request.POST["employee"]
@@ -124,28 +124,25 @@ def add_task(request, timecard_id):
 
     else:
         p = hq_models.Project.objects.all()
-        return render(request, 'kronos/addtask.html', {
+        return render(request, 'kronos/task_add.html', {
             'projects': p,
             'timecard_id': timecard_id
             })
 
-def edit(request, timecard_id):
-    pass
-
 # /kronos/1/delete/
 # deletes the timecard with id
-def deletetc(request, timecard_id):
+def timecard_delete(request, timecard_id):
     t = Timecard.objects.get(pk=timecard_id)
     t.delete()
     return HttpResponseRedirect('/kronos/')    
 
-def detail_task(request, timecard_id, task_id):
+def task_detail(request, timecard_id, task_id):
     try:
         tc = Timecard.objects.get(pk=timecard_id)
         task = Task.objects.get(pk=task_id)
     except Timecard.DoesNotExist:
         raise Http404("Task does not exist.")
-    return render(request, 'kronos/detail_task.html', {
+    return render(request, 'kronos/task_detail.html', {
         'timecard': tc,
         'task': task
         })
@@ -153,7 +150,7 @@ def detail_task(request, timecard_id, task_id):
 
 # /kronos/1/task/1/delete/
 # delete the task with id
-def delete_task(request, timecard_id, task_id):
+def task_delete(request, timecard_id, task_id):
     t = Task.objects.get(pk=task_id)
     t.delete()
     return HttpResponseRedirect('/kronos/') 
