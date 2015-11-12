@@ -2,16 +2,11 @@
 
 {% block content %}
     <section>
-        <h1>Review Timecard</h1>
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-        {% if timecard.submission_notes %}
-            <p>{{ timecard.employee.first_name }} said...</p>
-            <blockquote>{{ timecard.submission_notes }}</blockquote>
-        {% endif %}
+        <h1>Timecard</h1>
+        <h2>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</h2>
         <h3>{{ timecard.pay_period_start }} through {{ timecard.pay_period_end }}</h3>
-
         {% if tasks %}
-            <table>
+            <table class="tasks">
                 <thead>
                     <tr class="task">
                         <th>Date</th>
@@ -28,7 +23,9 @@
                     <tr class="task">
                         <td>{{ task.date }}</td>
                         <td>{{ task.project }}</td>
-                        <td><a href="{% url 'kronos:detail' task.id %}">{{ task.description }}</a></td>
+                        <td>
+                            <a href="{% url 'kronos:task_detail' timecard.id task.id %}">{{ task.description }}</a>
+                        </td>
                         <td>{{ task.start_time }}</td>
                         <td>{{ task.end_time }}</td>
                         <td>{{ task.labor_item_number }}</td>
@@ -38,14 +35,22 @@
                 </tbody>
             </table>
         {% else %}
-            <p><em>There are no tasks</em></p>
+            <p><em>You have no tasks</em></p>
         {% endif %}
+        <p>
+            <a href="{% url 'kronos:task_add' timecard.id %}">+ Add new task</a>
+        </p>
     </section>
     <section>
-        <form method="post" action="{% url 'kronos:review' timecard.id %}">
+        <form method="post" action="{% url 'kronos:timecard_review' timecard.id %}">
             {% csrf_token %}
             <p>
-                <input type="submit" value="Mark as reviewed">
+                <label for="submission_notes">Submission notes:</label>
+                <br>
+                <textarea name="submission_notes" placeholder="Anything you'd like to tell the manager about your timecard?">{{ timecard.submission_notes }}</textarea>
+            </p>
+            <p>
+                <input type="submit" value="Submit for review">
             </p>
         </form>
     </section>

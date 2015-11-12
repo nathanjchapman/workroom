@@ -9,7 +9,7 @@
             <ul>
             {% for tc in timecards %}
                 <li>{{ tc.employee.first_name }} {{ tc.employee.last_name }}
-                    <a href="{% url 'kronos:detail' tc.id %}">
+                    <a href="{% url 'kronos:timecard_detail' tc.id %}">
                         {{ tc.pay_period_start }} to {{ tc.pay_period_end }}
                     </a>
                 </li>

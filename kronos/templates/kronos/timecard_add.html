@@ -9,7 +9,7 @@
     <h1>Add a new Timecard</h1>
 
     <section>
-        <form method="post" action="{% url 'kronos:add timecard' %}">
+        <form method="post" action="{% url 'kronos:timecard_add' %}">
             {% csrf_token %}
             <input type="hidden" name="employee" value="{{ user.id }}">
             <p>

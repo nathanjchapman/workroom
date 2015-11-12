@@ -9,7 +9,7 @@
             <ul>
             {% for tc in timecards %}
                 <li>
-                    <a href="{% url 'kronos:detail' tc.id %}">{{ tc.pay_period_start }} through {{ tc.pay_period_end }}</a></li>
+                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }} through {{ tc.pay_period_end }}</a></li>
             {% endfor %}
             </ul>
         {% else %}
