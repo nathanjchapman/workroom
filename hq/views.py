@@ -3,7 +3,12 @@ from .models import Address, Project
 from .forms import AddressForm, ProjectForm
 
 def overview(request):
-    pass
+    p = Project.objects.all()
+    a = Address.objects.all()
+    return render(request, 'hq/overview.html', {
+        'projects': p,
+        'addresses': a
+        })
 
 # /hq/project/add/
 def project_add(request):

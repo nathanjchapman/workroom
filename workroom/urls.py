@@ -18,6 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^kronos/', include('kronos.urls', namespace="kronos")),
+    url(r'^atom/', include('atom.urls', namespace="atom")),
     url(r'^hq/', include('hq.urls', namespace="hq")),
     url(r'^stronghold/', include('stronghold.urls', namespace="stronghold")),
     url(r'^admin/', include(admin.site.urls)),

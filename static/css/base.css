@@ -172,6 +172,13 @@ table {
     width: 100%;
     }
 
+.li-class a,
+.task a {
+    white-space: normal;
+    }
+
+.li-class td,
+.li-class th,
 .task td,
 .task th {
     font-size: 0.75em;
@@ -179,6 +186,9 @@ table {
     padding: 2px 10px;
     }
 
+.li-class td {
+    text-align: right;
+    }
 
 /* Major Elements */
 section {
@@ -192,3 +202,22 @@ section {
     padding-right: 2em;
     padding-left: 2em;
     }
+
+@media print {
+    header,
+    footer {
+        display: none;
+    }
+    html {
+        font-size: 12pt;
+    }
+    body {
+        margin: 1in;
+        color: black;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
