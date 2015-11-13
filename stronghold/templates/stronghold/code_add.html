@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Add a new Code</h1>
+
+    <section>
+        <form method="post" action="{% url 'stronghold:code_add' %}">
+            {% csrf_token %}
+            <p>
+                {{ form }}
+            </p>
+            <p>
+                <small>Don't see the door you want? <a href="{% url 'stronghold:door_add' %}">+ Add a new door</a></small>
+            </p>
+            <p>
+                <input type="submit" value="Add this Code">
+            </p>
+        </form>
+    </section>
+{% endblock %}

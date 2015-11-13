@@ -1,5 +1,5 @@
 html {
-    font-size: 1.25em;
+    font-size: 1.125em;
     }
 
 body {
@@ -15,7 +15,9 @@ body {
     }
 
 /* Text Elements */
-p {
+p,
+ul,
+ol {
     margin-bottom: 1.3em;
     }
 
@@ -94,9 +96,9 @@ label {
     }
 
 input[type=text],
-input[type=number],
 select[multiple=multiple],
 textarea,
+.action-button,
 .datepickr {
     color: #111111;
     height: 2.75em;
@@ -109,19 +111,21 @@ textarea,
             box-sizing: border-box;
     }
 
-input[type=submit] {
+input[type=submit],
+.action-button {
     padding: 0.5em;
     border: none;
     box-shadow: 0 4px 0 #8aa12d;
     background-color: #8aa12d;
     color: #ffffff;
     cursor: pointer;
-    }
+    text-decoration: none;
 
-    input[type=submit]:hover {
-        box-shadow: 0 4px 0 #6E8330;
-        }
-    input[type=submit]:active {
+    box-shadow: 0 4px 0 #6E8330;
+    }
+    
+    input[type=submit]:active,
+    .action-button:active {
         margin-top: 4px;
         margin-bottom: -4px;
         box-shadow: none;

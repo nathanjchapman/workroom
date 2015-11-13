@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .models import Address, Project
-from .forms import ProjectForm
+from .forms import AddressForm, ProjectForm
+
+def overview(request):
+    pass
 
 # /hq/project/add/
 def project_add(request):
@@ -14,7 +17,7 @@ def project_add(request):
 
     else:
         form = ProjectForm()
-        return render(request, 'hq/project_add.html', {'form': form})
+        return render(request, 'hq/project_add.html', {'form': form.as_p()})
 
 # /hq/address/add/
 def address_add(request):
@@ -29,4 +32,5 @@ def address_add(request):
         return HttpResponseRedirect('/hq/')
 
     else:
-        return render(request, 'hq/address_add.html')
+        form = AddressForm()
+        return render(request, 'hq/address_add.html', {'form': form.as_p()})

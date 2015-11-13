@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Stronghold</h1>
+<section>
+    <h3>Permanent Codes</h3>
+    {% if perm_codes %}
+        <ul>
+        {% for code in perm_codes %}
+            <li><a href="{% url 'stronghold:code_detail' code.id %}">{{ code.number }}{% if door.location %}, located at {{ code.door.location }}{% endif %} {{ code.belongs_to }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no codes yet.</p>
+    {% endif %}
+    <p>
+        <a class="action-button" href="{% url 'stronghold:code_add' %}">+ Add a new code</a>
+    </p>
+</section>
+<section>
+    <h3>Temporary Codes</h3>
+    {% if tmp_codes %}
+        <ul>
+        {% for code in tmp_codes %}
+            <li><a href="{% url 'stronghold:code_detail' code.id %}">{{ code.number }}{% if door.location %}, located at {{ code.door.location }}{% endif %} {{ code.belongs_to }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no codes yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

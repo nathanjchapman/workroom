@@ -15,10 +15,12 @@
 </head>
 <body>
     <header>
-        <h1>{{ page_title }}</h1>
+        <h1>Workroom</h1>
         <nav>
             <p>
+                <a href="{% url 'hq:overview' %}">Projects</a>
                 <a href="{% url 'kronos:overview' %}">Timecards</a>
+                <a href="{% url 'stronghold:overview' %}">Stronghold</a>
             </p>
         </nav>
     </header>

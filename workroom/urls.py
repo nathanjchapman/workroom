@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.shortcuts import render
 
 urlpatterns = [
     url(r'^kronos/', include('kronos.urls', namespace="kronos")),
     url(r'^hq/', include('hq.urls', namespace="hq")),
+    url(r'^stronghold/', include('stronghold.urls', namespace="stronghold")),
     url(r'^admin/', include(admin.site.urls)),
 ]
 
