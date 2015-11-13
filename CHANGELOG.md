@@ -7,3 +7,4 @@ All notable changes to this project will be documented in this file. This projec
 - HQ Projects basic operations: index, add, detail, delete.
 - Stronghold Overview
 - Stronghold Code basic operations
+- Atom: a Labor classification tool to help calculate insurance totals automatically based on what your crew are doing.

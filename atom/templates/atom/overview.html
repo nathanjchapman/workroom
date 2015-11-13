@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Atom</h1>
+<section>
+    <h3>Labor and Industry Classifications</h3>
+    {% if li_classes %}
+        <table class="li-class">
+            <thead>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Company rate</th>
+                <th>Employee rate</th>
+            </thead>
+            <tbody>
+                {% for i in li_classes %}
+                    <tr>
+                        <td>{{ i.number }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.description }}</td>
+                        <td>${{ i.company_rate }}</td>
+                        <td>${{ i.employee_rate }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>There are no Classes yet.</p>
+    {% endif %}
+    <p><a class="action-button" href="{% url 'atom:li_class_add' %}">+ Add a new Class</a></p>
+</section>
+{% endblock %}
