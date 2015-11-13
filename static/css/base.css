@@ -94,6 +94,8 @@ label {
     }
 
 input[type=text],
+input[type=number],
+select[multiple=multiple],
 textarea,
 .datepickr {
     color: #111111;
@@ -129,6 +131,20 @@ input[type=submit] {
     textarea:focus {
         border-color: #8aa12d;
         }
+
+select[multiple=multiple] {
+    height: 125px;
+    }
+
+input[type=number] {
+    max-width: 150px;
+    height: 3.32em;
+    }
+
+input[type=checkbox] {
+    width: 1em;
+    vertical-align: text-top;
+    }
 
 textarea {
     width: 100%;
