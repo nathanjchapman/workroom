@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Timecard, Task
 from django.contrib.auth.models import User
 from hq import models as hq_models
+from atom.models import LaborGroup, LaborItem, LaborIndustryClass
 
 # /kronos/
 # Overview of kronos
@@ -100,12 +101,16 @@ def task_add(request, timecard_id):
         description = request.POST["description"]
         start_time = request.POST["start_time"]
         end_time = request.POST["end_time"]
-        labor_item_number = request.POST["labor_item_number"]
-        li_class = request.POST["li_class"]
+        labor_item_id = request.POST["labor_item_number"]
+        li_class_id = request.POST["li_class"]
 
         project = hq_models.Project.objects.get(id=pr)
         user = User.objects.get(id=employee)
         timecard = Timecard.objects.get(id=timecard_id)
+        labor_item = LaborItem.objects.get(id=labor_item_id)
+        li_class = LaborIndustryClass(id=li_class_id)
+
+
 
         t = Task.objects.create(
             employee=user,
@@ -115,7 +120,7 @@ def task_add(request, timecard_id):
             description = description,
             start_time = start_time,
             end_time = end_time,
-            labor_item_number = labor_item_number,
+            labor_item_number = labor_item,
             li_class = li_class
             )
         t.save()
@@ -123,10 +128,14 @@ def task_add(request, timecard_id):
         return HttpResponseRedirect('/kronos/')
 
     else:
+        li_classes = LaborIndustryClass.objects.all()
+        labor_groups = LaborGroup.objects.all()
         p = hq_models.Project.objects.all()
         return render(request, 'kronos/task_add.html', {
             'projects': p,
-            'timecard_id': timecard_id
+            'timecard_id': timecard_id,
+            'labor_groups': labor_groups,
+            'li_classes': li_classes
             })
 
 # /kronos/1/delete/

@@ -4,6 +4,10 @@
 <h1>Atom</h1>
 <section>
     <h3>Labor and Industry Classifications</h3>
+<<<<<<< HEAD
+=======
+    <p><a class="action-button" href="{% url 'atom:li_class_add' %}">+ Add a new Class</a></p>
+>>>>>>> calc
     {% if li_classes %}
         <table class="li-class">
             <thead>
@@ -28,6 +32,36 @@
     {% else %}
         <p>There are no Classes yet.</p>
     {% endif %}
+<<<<<<< HEAD
     <p><a class="action-button" href="{% url 'atom:li_class_add' %}">+ Add a new Class</a></p>
+=======
+</section>
+<section>
+    <h3>Labor Item Numbers</h3>
+    <p><a class="action-button" href="{% url 'atom:li_number_add' %}">+ Add a new Labor Item</a></p>
+    {% if labor_groups %}
+        {% for group in labor_groups %}
+            <table class="li-number">
+                <thead>
+                    <h4>{{ group }}</h4>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Number</th>
+                        <th>Description</th>
+                    </tr>
+                {% for item in group.laboritem_set.all %}
+                    <tr>
+                        <td>{{ item.number }}</td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    {% else %}
+        <p>There are no Labor items yet.</p>
+    {% endif %}
+>>>>>>> calc
 </section>
 {% endblock %}
