@@ -9,7 +9,7 @@
             <ul>
             {% for tc in timecards %}
                 <li>
-                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }} through {{ tc.pay_period_end }}</a></li>
+                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }}</a></li>
             {% endfor %}
             </ul>
         {% else %}
@@ -17,7 +17,7 @@
         {% endif %}
 
         <p>
-            <a href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
+            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
         </p>
     </section>
     <section>
@@ -26,7 +26,7 @@
             <ul>
             {% for tc in complete_timecards %}
                 <li>
-                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }} through {{ tc.pay_period_end }}</a></li>
+                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }}</a></li>
             {% endfor %}
             </ul>
         {% else %}

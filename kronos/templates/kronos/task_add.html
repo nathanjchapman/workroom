@@ -62,114 +62,34 @@
         <p>
             <label for="labor_item_number">Labor item number:</label>
             <br>
-            <select name="labor_item_number" requ  required>
-                <option value="" selected="selected">-------</option>
-                <optgroup label="Small Job">
-                    <option value="9999">9999: Small Job (labor items all together)</option>
-                </optgroup>
-                <optgroup label="Management">
-                    <option value="9102">9102: Project Management</option>
-                    <option value="9103">9103: Administrative</option>
-                    <option value="9105">9105: Onsite Job Supervision</option>
-                </optgroup>
-                <optgroup label="Site Preperation">
-                    <option value="9200">9200: Site Clearing</option>
-                    <option value="9215">9215: Pre-Construction Consultation, Planning, Plan Review, Estimating</option>
-                    <option value="9217">9217: Demolition</option>
-                    <option value="9220">9220: Waterline, Sewer</option>
-                    <option value="9223">9223: Drainage, Site Improvements</option>
-                    <option value="9225">9225: Temporary Power/Phone</option>
-                    <option value="9230">9230: Excavation and Backfill</option>
-                    <option value="9231">9231: Trenching</option>
-                </optgroup>
-                <optgroup label="Foundation">
-                    <option value="9300">9300: Footings, Foundation</option>
-                    <option value="9310">9310: Hydronics</option>
-                    <option value="9320">9320: Wall blocks (Rastra, Faswall, etc.)</option>
-                    <option value="9330">9330: Slab</option>
-                </optgroup>
-                <optgroup label="Framing">
-                    <option value="9410">9410: Floor Framing</option>
-                    <option value="9415">9415: Wall Framing</option>
-                    <option value="9420">9420: Roof Framing</option>
-                </optgroup>
-                <optgroup label="Roofing">
-                    <option value="9500">9500: Roofing</option>
-                </optgroup>
-                <optgroup label="">
-                    <option value="9605">9605: Siding</option>
-                    <option value="9606">9606: Stucco</option>
-                    <option value="9610">9610: Ext. Doors</option>
-                    <option value="9615">9615: Windows</option>
-                    <option value="9620">9620: Concrete (other than Footings, Foundation, Slab)</option>
-                    <option value="9625">9625: Masonry, Stonework, Ext. Tile</option>
-                    <option value="9630">9630: Ext. Paint</option>
-                    <option value="9635">9635: Gutters, Downspouts</option>
-                    <option value="9640">9640: Decks and Porch Roofs</option>
-                    <option value="9645">9645: Ext. Trim</option>
-                    <option value="9650">9650: Solarium</option>
-                </optgroup>
-                <optgroup label="">
-                    <option value="9705">9705: Drywall</option>
-                    <option value="9706">9706: Structolite</option>
-                    <option value="9710">9710: Int. Doors</option>
-                    <option value="9715">9715: Cabinetry</option>
-                    <option value="9720">9720: Int. Tile, Stonework</option>
-                    <option value="9725">9725: Flooring</option>
-                    <option value="9730">9730: Int. Hardware</option>
-                    <option value="9735">9735: Countertops</option>
-                    <option value="9736">9736: Int. Paint</option>
-                    <option value="9740">9740: Int. Trim</option>
-                    <option value="9750">9750: Stairs</option>
-                </optgroup>
-                <optgroup label="Plumbing">
-                    <option value="9805">9805: Plumbing (rough)</option>
-                    <option value="9810">9810: Plumbing (finish)</option>
-                </optgroup>
-                <optgroup label="">
-                    <option value="91005">91005: Heat (rough)</option>
-                    <option value="91010">91010: Heat (finish)</option>
-                    <option value="91015">91015: Ventilation and Mechanical</option>
-                    <option value="91020">91020: Vacuum System</option>
-                </optgroup>
-                <optgroup label="Insulation">
-                    <option value="92000">92000: Insulation</option>
-                </optgroup>
-                <optgroup label="Fixtures">
-                    <option value="93000">93000: Light Fixtures</option>
-                </optgroup>
-                <optgroup label="Appliances">
-                    <option value="94000">94000: Appliances</option>
-                </optgroup>
-                <optgroup label="Paving and Gravel">
-                    <option value="95000">95000: Paving and Gravel</option>
-                </optgroup>
-                <optgroup label="Landscaping">
-                    <option value="96000">96000: Landscaping</option>
-                </optgroup>
-                <optgroup label="Sanitation, Site Cleanup">
-                    <option value="97000">97000: Sanitation, Site Cleanup</option>
-                </optgroup>
-            </select>
+            {% if labor_groups %}
+                <select name="labor_item_number" required>
+                    <option value="" selected="selected">-------</option>
+                {% for group in labor_groups %}
+                    <optgroup label="{{ group.name }}">
+                    {% for item in group.laboritem_set.all %}
+                        <option value="{{ item.id }}">{{ item.number }}: {{ item.description }}</option>
+                    {% endfor %}
+                    </optgroup>
+                {% endfor %}
+                </select>
+            {% else %}
+                <p>There are no Labor items yet.</p>
+            {% endif %}
         </p>
         <p>
             <label for="li_class">L&amp;I class:</label>
             <br>
-            <select name="li_class" requ   required>
-                <option value="" selected="selected">-------</option>
-                <option value="0217">0217: Concrete Found, Flatwork-Wood Bldg (comp: $2.53/hr, emp: $.51/hr)</option>
-                <option value="0301">0301: Landscape Const (comp: $1.44/hr, emp: $0.37/hr)</option>
-                <option value="0303">0303: Stucco, Plaster (comp: $3.31/hr, emp: $0.60/hr)</option>
-                <option value="0307">0307: Heat System Install or Repair (comp: $1.74/hr, emp: $0.36/hr)</option>
-                <option value="0504">0504: Ext. Painting (comp: $3.29/hr, emp: $0.76/hr)</option>
-                <option value="0507">0507: Roof Construction or Repair (comp: $6.00/hr, emp: $1.36/hr)</option>
-                <option value="0510">0510: Wood Frame Bldg Const (comp: $3.9/hr, emp: $0.80/hr)</option>
-                <option value="0513">0513: Int. Finish Carpentry (comp: $1.67/hr, emp: $0.34/hr)</option>
-                <option value="0516">0516: Building Repair-Carpentry (comp: $3.04/hr, emp: $0.58/hr)</option>
-                <option value="0521">0521: Int. Paint, Wallpaper (comp: $1.06/hr, emp: $0.25/hr)</option>
-                <option value="4904">4904: Clerical Only (cannot be mixed) (comp: $0.09/hr, emp: $0.06/hr)</option>
-                <option value="4911">4911: Contruction Est (comp: $0.17/hr, emp: $0.07/hr)</option>
-            </select>
+            {% if li_classes %}
+                <select name="li_class" required>
+                    <option value="" selected="selected">-------</option>
+                {% for class in li_classes %}
+                    <option value="{{ class.id }}">{{ class.number }}: {{ class.name }}</option>
+                {% endfor %}
+                </select>
+            {% else %}
+                <p>There are no Labor Classes yet.</p>
+            {% endif %}
         </p>
     </section>
     <section>

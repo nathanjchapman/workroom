@@ -1,6 +1,23 @@
 from django import forms
 from .models import Address, Project
 
+class AddressForm(forms.ModelForm):
+
+    class Meta:
+        model = Address
+        fields = ('__all__')
+        widgets = {
+            'street': forms.TextInput(attrs= {
+                'placeholder': '1037 Lawrence St'
+                }),
+            'city': forms.TextInput(attrs= {
+                'placeholder': 'Port Townsend'
+                }),
+            'state': forms.TextInput(attrs= {
+                'placeholder': 'WA'
+                }),
+            }
+
 class ProjectForm(forms.ModelForm):
 
     class Meta:
