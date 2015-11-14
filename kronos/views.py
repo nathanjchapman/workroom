@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Timecard, Task
 from django.contrib.auth.models import User
 from hq import models as hq_models
+from atom.models import LaborGroup, LaborIndustryClass
 
 # /kronos/
 # Overview of kronos
@@ -123,10 +124,14 @@ def task_add(request, timecard_id):
         return HttpResponseRedirect('/kronos/')
 
     else:
+        li_classes = LaborIndustryClass.objects.all()
+        labor_groups = LaborGroup.objects.all()
         p = hq_models.Project.objects.all()
         return render(request, 'kronos/task_add.html', {
             'projects': p,
-            'timecard_id': timecard_id
+            'timecard_id': timecard_id,
+            'labor_groups': labor_groups,
+            'li_classes': li_classes
             })
 
 # /kronos/1/delete/

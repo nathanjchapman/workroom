@@ -5,6 +5,9 @@
         <h1>Timecard</h1>
         <h2>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</h2>
         <h3>{{ timecard.pay_period_start }} through {{ timecard.pay_period_end }}</h3>
+        <p>
+            <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new task</a>
+        </p>
         {% if tasks %}
             <table class="tasks">
                 <thead>
@@ -37,9 +40,6 @@
         {% else %}
             <p><em>You have no tasks</em></p>
         {% endif %}
-        <p>
-            <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new task</a>
-        </p>
     </section>
     <section>
         <form method="post" action="{% url 'kronos:timecard_review' timecard.id %}">

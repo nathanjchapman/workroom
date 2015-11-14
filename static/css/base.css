@@ -86,7 +86,6 @@ textarea {
     }
 
 input {
-    font-family: 'Andada', serif;
     font-weight: 400;
     outline: 0;
     }
@@ -172,22 +171,15 @@ table {
     width: 100%;
     }
 
-.li-class a,
-.task a {
+table a {
     white-space: normal;
     }
 
-.li-class td,
-.li-class th,
-.task td,
-.task th {
+td,
+th {
     font-size: 0.75em;
     border: 1px solid #dddddd;
     padding: 2px 10px;
-    }
-
-.li-class td {
-    text-align: right;
     }
 
 /* Major Elements */
@@ -203,6 +195,11 @@ section {
     padding-left: 2em;
     }
 
+.delete {
+    color: #e74c3c;
+}
+
+/* Print settings */
 @media print {
     header,
     footer {

@@ -39,3 +39,9 @@ def address_add(request):
     else:
         form = AddressForm()
         return render(request, 'hq/address_add.html', {'form': form.as_p()})
+
+def address_detail(request, address_id):
+    pass
+
+def project_detail(request, project_id):
+    pass
