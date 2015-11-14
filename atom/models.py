@@ -4,10 +4,16 @@ class LaborGroup(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=72)
 
+    def __str__(self):
+        return "%d - %s" % (self.number, self.name)
+
 class LaborItem(models.Model):
     group = models.ForeignKey(LaborGroup)
     number = models.IntegerField()
     description = models.CharField(max_length=72)
+
+    def __str__(self):
+        return "%d - %s" % (self.number, self.description)    
 
 class LaborIndustryClass(models.Model):
     number = models.IntegerField()

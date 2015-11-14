@@ -4,10 +4,10 @@
 <h1>HQ</h1>
 <section>
     <h3>Projects</h3>
-    {% if perm_projects %}
+    {% if projects %}
         <ul>
-        {% for project in perm_projects %}
-            <li><a href="{% url 'hq:project_detail' project.id %}">{{ project</a></li>
+        {% for project in projects %}
+            <li><a href="{% url 'hq:project_detail' project.id %}">{{ project }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
@@ -22,7 +22,7 @@
     {% if addresses %}
         <ul>
         {% for a in addresses %}
-            <li><a href="{% url 'hq:address_detail' a.id %}">{{ a.number }}{% if door.location %}, located at {{ a.door.location }}{% endif %} {{ a.belongs_to }}</a></li>
+            <li><a href="{% url 'hq:address_detail' a.id %}">{{ a }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
