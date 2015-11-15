@@ -19,6 +19,7 @@
                         <th>End time</th>
                         <th>LI number</th>
                         <th>L&I class</th>
+                        <th>Task Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                         <td>{{ task.end_time }}</td>
                         <td>{{ task.labor_item_number.number }}</td>
                         <td>{{ task.li_class.number }}</td>
+                        <td>{{ task.get_hours }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -4,6 +4,9 @@
 <h1>Stronghold</h1>
 <section>
     <h3>Permanent Codes</h3>
+    <p>
+        <a class="action-button" href="{% url 'stronghold:code_add' %}">+ Add a new code</a>
+    </p>
     {% if perm_codes %}
         <ul>
         {% for code in perm_codes %}
@@ -13,9 +16,6 @@
     {% else %}
         <p>There are no codes yet.</p>
     {% endif %}
-    <p>
-        <a class="action-button" href="{% url 'stronghold:code_add' %}">+ Add a new code</a>
-    </p>
 </section>
 <section>
     <h3>Temporary Codes</h3>

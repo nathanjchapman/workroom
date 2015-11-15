@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from atom.models import LaborItem, LaborIndustryClass
+from atom.models import LaborItem, LaborClass
 
 class Timecard(models.Model):
     employee = models.ForeignKey(User)
@@ -26,7 +26,7 @@ class Task(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     labor_item_number = models.ForeignKey(LaborItem)
-    li_class = models.ForeignKey(LaborIndustryClass)
+    li_class = models.ForeignKey(LaborClass)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

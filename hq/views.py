@@ -18,7 +18,7 @@ def project_add(request):
         p = Project.objects.create(request.POST)
         p.save()
 
-        return HttpResponseRedirect('/hq/')
+        return HttpResponseRedirect('/hq/%s' % (p.id))
 
     else:
         form = ProjectForm()

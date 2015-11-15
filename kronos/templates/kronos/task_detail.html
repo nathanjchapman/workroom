@@ -14,6 +14,9 @@
         <p>L&I class: <strong>{{ task.li_class }}</strong></p>
     </section>
     <section>
+        {{ task.get_hours }}
+    </section>
+    <section>
         <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}">x delete this task</a>
     </section>
 {% endblock %}
