@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborIndustryClass
@@ -29,5 +30,12 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def get_hours(self):
+        return todatetime(self.end_time) - todatetime(self.start_time)
+
     def __str__(self):
         return self.description
+
+def todatetime(time):
+    return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, 
+        microsecond=time.microsecond, tzinfo=time.tzinfo)

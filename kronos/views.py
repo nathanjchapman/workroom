@@ -38,17 +38,15 @@ def timecard_add(request):
 
 # /kronos/1/
 def timecard_detail(request, timecard_id):
-    try:
-        tc = Timecard.objects.get(pk=timecard_id)
-        tasks = Task.objects.all().filter(timecard=tc).order_by('date')
-    except Timecard.DoesNotExist:
-        raise Http404("Timecard does not exist.")
+    tc = Timecard.objects.get(pk=timecard_id)
+    tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+
     return render(request, 'kronos/timecard_detail.html', {
         'timecard': tc,
         'tasks': tasks
         })
 
-# /kronos/1/review
+# /kronos/1/review/
 # have to be a manager
 def timecard_review(request, timecard_id):
     # if POST process data
