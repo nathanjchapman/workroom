@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Project</h1>
+    <section>
+        <h3>
+            {{ project.name }}
+            {% if project.archived %}- <em>This project is archived</em>{% endif %}
+        </h3>
+        <hr>
+        <p>{{ project.description }}</p>
+        {% if project.address %}
+            {% for address in project.address_set.all %}
+                <address>
+                    {{ address.street }}<br>
+                    {{ address.city }}<br>
+                    {{ address.state }}<br>
+                    {{ address.zip_code }}<br>
+                </address>
+            {% endfor %}
+        {% endif %}
+    </section>
+    <section>
+        <p>
+            <a href="{% url 'hq:project_archive' project.id %}">Archive this project</a> or 
+            <a class="delete" href="{% url 'hq:project_delete' project.id %}">x delete this project</a>
+        </p>
+    </section>
+{% endblock %}

@@ -1,10 +1,12 @@
+@import url("../fonts/andada/stylesheet.css");                                   
+
 html {
     font-size: 1.125em;
     }
 
 body {
     max-width: 8.5in;
-    margin: 1em;
+    margin: 0.25in 1in;
 
 
     background-color: #fffff8;
@@ -114,6 +116,7 @@ textarea,
 
 input[type=submit],
 .action-button {
+    letter-spacing: 1px;
     padding: 0.5em;
     border: none;
     box-shadow: 0 4px 0 #8aa12d;
@@ -179,7 +182,7 @@ table a {
 
 td,
 th {
-    font-size: 0.75em;
+    font-size: 0.85em;
     border: 1px solid #dddddd;
     padding: 2px 10px;
     }
@@ -192,22 +195,31 @@ section {
 
 /* Modules */
 nav {
-    border-bottom: 4px solid #dddddd;
+    background-color: #8aa12d;
+
     margin-bottom: 1.3em;
     text-align: center;
     }
+
 nav a {
+    font-family: "Andada_SC";
+    font-weight: bold;
+    color: #fffff8;
+    letter-spacing: 1px;
     text-decoration: none;
     padding: 0.125em 1em;
     display: table-cell;
     text-align: center;
+    border: 3px solid #8aa12d;
     }
 
     nav a:hover {
-        background-color: #8aa12d;
-        color: #fffff8;
+
+        background-color: #fffff8;
+        color: #8aa12d;
         }
 
+    .login,
     .logout {
         float: right;
         }

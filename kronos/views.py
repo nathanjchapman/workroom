@@ -149,7 +149,7 @@ def task_add(request, timecard_id):
     else:
         li_classes = LaborClass.objects.all()
         labor_groups = LaborGroup.objects.all()
-        p = hq_models.Project.objects.all()
+        p = hq_models.Project.objects.all().filter(archived=False)
         return render(request, 'kronos/task_add.html', {
             'projects': p,
             'timecard_id': timecard_id,

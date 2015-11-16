@@ -44,6 +44,7 @@
         {% endif %}
     </section>
     <section>
+        <p>Ready to submit your timecard? Leave an optional note and hit the botton below.</p>
         <form method="post" action="{% url 'kronos:timecard_review' timecard.id %}">
             {% csrf_token %}
             <p>

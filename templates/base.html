@@ -19,17 +19,19 @@
         {% if user.is_authenticated %}
             <nav>
                 <p>
-                    <a class="logout" href="{% url 'logout' %}">Logout</a>
-                    <a href="{% url 'kronos:overview' %}">Timecards</a>
-                    <a href="{% url 'hq:overview' %}">Projects</a>
-                    <a href="{% url 'atom:overview' %}">Labor Classes</a>
-                    <a href="{% url 'stronghold:overview' %}">Stronghold</a>
+                    <a class="logout" href="{% url 'logout' %}">logout</a>
+                    <a href="{% url 'kronos:overview' %}">timecards</a>
+                    <a href="{% url 'hq:overview' %}">projects</a>
+                    <a href="{% url 'atom:overview' %}">labor classes</a>
+                    <a href="{% url 'stronghold:overview' %}">stronghold</a>
                 </p>
             </nav>
         {% else %}
             <nav>
                 <p>
-                    <a href="{% url 'login' %}">Log in</a>
+                    <a class="login" href="{% url 'login' %}">log in</a>
+                    <a href="">home</a>
+                    <a href="">about</a>
                 </p>
             </nav>
         {% endif %}
