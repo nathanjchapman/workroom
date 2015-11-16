@@ -17,6 +17,11 @@ class Timecard(models.Model):
         return "Pay-period %s through %s." % (self.pay_period_start,
             self.pay_period_end)
 
+    class Meta:
+        permissions = (
+            ('can_review_timecards', "Can review timecards"),
+            )
+
 class Task(models.Model):
     timecard = models.ForeignKey(Timecard)
     employee = models.ForeignKey(User)

@@ -82,7 +82,6 @@ textarea {
     color: inherit;
     font: inherit;
     margin: 0;
-    width: 100%;
     }
 
 input {
@@ -95,6 +94,8 @@ label {
     }
 
 input[type=text],
+input[type=email],
+input[type=password],
 select[multiple=multiple],
 textarea,
 .action-button,
@@ -103,6 +104,7 @@ textarea,
     height: 2.75em;
     border: 4px solid #dddddd;
     padding: 1em;
+    width: 100%;
     outline: 0;
 
     -webkit-box-sizing: border-box;
@@ -189,15 +191,37 @@ section {
 
 
 /* Modules */
+nav {
+    border-bottom: 4px solid #dddddd;
+    margin-bottom: 1.3em;
+    text-align: center;
+    }
+nav a {
+    text-decoration: none;
+    padding: 0.125em 1em;
+    display: table-cell;
+    text-align: center;
+    }
+
+    nav a:hover {
+        background-color: #8aa12d;
+        color: #fffff8;
+        }
+
+    .logout {
+        float: right;
+        }
+
 .task-section {
     border: 4px solid #dddddd;
     padding-right: 2em;
     padding-left: 2em;
     }
 
+.error,
 .delete {
     color: #e74c3c;
-}
+    }
 
 /* Print settings */
 @media print {

@@ -16,14 +16,23 @@
 <body>
     <header>
         <h1>Workroom</h1>
-        <nav>
-            <p>
-                <a href="{% url 'hq:overview' %}">Projects</a>
-                <a href="{% url 'kronos:overview' %}">Timecards</a>
-                <a href="{% url 'stronghold:overview' %}">Stronghold</a>
-                <a href="{% url 'atom:overview' %}">Labor Classes</a>
-            </p>
-        </nav>
+        {% if user.is_authenticated %}
+            <nav>
+                <p>
+                    <a class="logout" href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'kronos:overview' %}">Timecards</a>
+                    <a href="{% url 'hq:overview' %}">Projects</a>
+                    <a href="{% url 'atom:overview' %}">Labor Classes</a>
+                    <a href="{% url 'stronghold:overview' %}">Stronghold</a>
+                </p>
+            </nav>
+        {% else %}
+            <nav>
+                <p>
+                    <a href="{% url 'login' %}">Log in</a>
+                </p>
+            </nav>
+        {% endif %}
     </header>
 
     <article>
