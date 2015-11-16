@@ -113,4 +113,4 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 DEFAULT_FROM_EMAIL = 'webmaster@wallyworks.net'
 LOGIN_REDIRECT_URL = '/kronos/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_URL = '/login/'
