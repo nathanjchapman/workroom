@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Code</h1>
+    <section>
+        <h3>Door Code</h3>
+        <p>{{ code.door }}</p>
+        <p>{{ code.number }}</p>
+        <p>{{ code.permanent }}</p>
+        <p>{{ code.belongs_to }}</p>
+        
+    </section>
+    <section>
+        <a class="delete" href="{% url 'stronghold:code_delete' code.id %}">x delete this door</a>
+    </section>
+{% endblock %}
+
+
+
+
+

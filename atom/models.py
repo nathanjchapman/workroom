@@ -15,10 +15,10 @@ class LaborItem(models.Model):
     def __str__(self):
         return "%d - %s" % (self.number, self.description)    
 
-class LaborIndustryClass(models.Model):
+class LaborClass(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=72)
-    description = models.CharField(max_length=72)
+    description = models.TextField(max_length=72)
     company_rate = models.DecimalField(max_digits=8, decimal_places=2)
     employee_rate = models.DecimalField(max_digits=8, decimal_places=2)
 
@@ -26,4 +26,4 @@ class LaborIndustryClass(models.Model):
         return "%d - %s" % (self.number, self.name)
 
     class Meta:
-        verbose_name_plural = "labor industry classes"
+        verbose_name_plural = "labor classes"

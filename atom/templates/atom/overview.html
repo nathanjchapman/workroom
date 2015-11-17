@@ -4,12 +4,9 @@
 <h1>Atom</h1>
 <section>
     <h3>Labor and Industry Classifications</h3>
-<<<<<<< HEAD
-=======
-    <p><a class="action-button" href="{% url 'atom:li_class_add' %}">+ Add a new Class</a></p>
->>>>>>> calc
-    {% if li_classes %}
-        <table class="li-class">
+    <!-- <p><a class="action-button" href="{% url 'atom:labor_class_add' %}">+ Add a new Class</a></p> -->
+    {% if labor_classes %}
+        <table class="labor-class">
             <thead>
                 <th>Number</th>
                 <th>Name</th>
@@ -18,7 +15,7 @@
                 <th>Employee rate</th>
             </thead>
             <tbody>
-                {% for i in li_classes %}
+                {% for i in labor_classes %}
                     <tr>
                         <td>{{ i.number }}</td>
                         <td>{{ i.name }}</td>
@@ -32,16 +29,13 @@
     {% else %}
         <p>There are no Classes yet.</p>
     {% endif %}
-<<<<<<< HEAD
-    <p><a class="action-button" href="{% url 'atom:li_class_add' %}">+ Add a new Class</a></p>
-=======
 </section>
 <section>
     <h3>Labor Item Numbers</h3>
-    <p><a class="action-button" href="{% url 'atom:li_number_add' %}">+ Add a new Labor Item</a></p>
+    <!-- <p><a class="action-button" href="{% url 'atom:labor_item_add' %}">+ Add a new Labor Item</a></p> -->
     {% if labor_groups %}
         {% for group in labor_groups %}
-            <table class="li-number">
+            <table class="labor-item">
                 <thead>
                     <h4>{{ group }}</h4>
                 </thead>
@@ -62,6 +56,5 @@
     {% else %}
         <p>There are no Labor items yet.</p>
     {% endif %}
->>>>>>> calc
 </section>
 {% endblock %}

@@ -67,6 +67,9 @@
 
 .datepickr-calendar th,
 .datepickr-calendar td {
+    font-size: 1em;
+    border: none;
+    padding: 0.1em;
     width: 14.3%;
 }
 

@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^', include('django.contrib.auth.urls')),
     url(r'^kronos/', include('kronos.urls', namespace="kronos")),
     url(r'^atom/', include('atom.urls', namespace="atom")),
     url(r'^hq/', include('hq.urls', namespace="hq")),

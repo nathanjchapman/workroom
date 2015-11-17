@@ -15,15 +15,26 @@
 </head>
 <body>
     <header>
-        <h1>Wallyworks Workroom</h1>
-        <nav>
-            <p>
-                <a href="{% url 'hq:overview' %}">Projects</a>
-                <a href="{% url 'kronos:overview' %}">Timecards</a>
-                <a href="{% url 'stronghold:overview' %}">Stronghold</a>
-                <a href="{% url 'atom:overview' %}">Labor Classes</a>
-            </p>
-        </nav>
+        <h1>WORKROOM</h1>
+        {% if user.is_authenticated %}
+            <nav>
+                <p>
+                    <a class="logout" href="{% url 'logout' %}">logout</a>
+                    <a href="{% url 'kronos:overview' %}">timecards</a>
+                    <a href="{% url 'hq:overview' %}">projects</a>
+                    <a href="{% url 'atom:overview' %}">labor classes</a>
+                    <a href="{% url 'stronghold:overview' %}">stronghold</a>
+                </p>
+            </nav>
+        {% else %}
+            <nav>
+                <p>
+                    <a class="login" href="{% url 'login' %}">log in</a>
+                    <a href="">home</a>
+                    <a href="">about</a>
+                </p>
+            </nav>
+        {% endif %}
     </header>
 
     <article>

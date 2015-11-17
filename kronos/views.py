@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Timecard, Task
 from django.contrib.auth.models import User
 from hq import models as hq_models
-from atom.models import LaborGroup, LaborItem, LaborIndustryClass
+from atom.models import LaborGroup, LaborItem, LaborClass
 
 # /kronos/
 # Overview of kronos
@@ -31,26 +31,24 @@ def timecard_add(request):
             )
         tc.save()
 
-        return HttpResponseRedirect('/kronos/')
+        return HttpResponseRedirect('/kronos/%s' % (tc.id))
 
     else:
         return render(request, 'kronos/timecard_add.html')
 
 # /kronos/1/
 def timecard_detail(request, timecard_id):
-    try:
-        tc = Timecard.objects.get(pk=timecard_id)
-        tasks = Task.objects.all().filter(timecard=tc).order_by('date')
-    except Timecard.DoesNotExist:
-        raise Http404("Timecard does not exist.")
+    tc = Timecard.objects.get(pk=timecard_id)
+    tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+
     return render(request, 'kronos/timecard_detail.html', {
         'timecard': tc,
         'tasks': tasks
         })
 
-# /kronos/1/review
+# /kronos/1/complete/
 # have to be a manager
-def timecard_review(request, timecard_id):
+def timecard_complete(request, timecard_id):
     # if POST process data
     if request.method == "POST":
         tc = Timecard.objects.get(pk=timecard_id)
@@ -70,9 +68,30 @@ def timecard_review(request, timecard_id):
             'tasks': tasks
             })
 
+# /kronos/1/review/
+# have to be a manager
+def timecard_review(request, timecard_id):
+    # if POST process data
+    if request.method == "POST":
+        tc = Timecard.objects.get(pk=timecard_id)
+        tc.reviewed = True
+        tc.save()
+
+        return HttpResponseRedirect('/kronos/')
+    else:
+        try:
+            tc = Timecard.objects.get(pk=timecard_id)
+            tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+        except Timecard.DoesNotExist:
+            raise Http404("Timecard does not exist.")
+        return render(request, 'kronos/timecard_review.html', {
+            'timecard': tc,
+            'tasks': tasks
+            })
+
 # /kronos/complete/
 # return a list of completed timecards
-def timecard_complete(request):
+def timecard_complete_index(request):
     try:
         tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True)
     except Timecard.DoesNotExist:
@@ -108,7 +127,7 @@ def task_add(request, timecard_id):
         user = User.objects.get(id=employee)
         timecard = Timecard.objects.get(id=timecard_id)
         labor_item = LaborItem.objects.get(id=labor_item_id)
-        li_class = LaborIndustryClass(id=li_class_id)
+        li_class = LaborClass(id=li_class_id)
 
 
 
@@ -125,12 +144,12 @@ def task_add(request, timecard_id):
             )
         t.save()
 
-        return HttpResponseRedirect('/kronos/')
+        return HttpResponseRedirect('/kronos/%s' % (timecard_id))
 
     else:
-        li_classes = LaborIndustryClass.objects.all()
+        li_classes = LaborClass.objects.all()
         labor_groups = LaborGroup.objects.all()
-        p = hq_models.Project.objects.all()
+        p = hq_models.Project.objects.all().filter(archived=False)
         return render(request, 'kronos/task_add.html', {
             'projects': p,
             'timecard_id': timecard_id,

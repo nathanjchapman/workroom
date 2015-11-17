@@ -25,7 +25,7 @@ SECRET_KEY = 'ssvn$_^nfy-psrb9la83h@dg0hg=wbq^jo-y%wm=f3%t-(4+_s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nathanjc.pythonanywhere.com']
 
 
 # Application definition
@@ -91,7 +91,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -108,3 +108,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+DEFAULT_FROM_EMAIL = 'webmaster@wallyworks.net'
+LOGIN_REDIRECT_URL = '/kronos/'
+LOGOUT_URL = '/login/'

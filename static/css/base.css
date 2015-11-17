@@ -1,10 +1,12 @@
+@import url("../fonts/andada/stylesheet.css");                                   
+
 html {
     font-size: 1.125em;
     }
 
 body {
     max-width: 8.5in;
-    margin: 1em;
+    margin: 0.25in 1em;
 
 
     background-color: #fffff8;
@@ -82,7 +84,6 @@ textarea {
     color: inherit;
     font: inherit;
     margin: 0;
-    width: 100%;
     }
 
 input {
@@ -95,6 +96,8 @@ label {
     }
 
 input[type=text],
+input[type=email],
+input[type=password],
 select[multiple=multiple],
 textarea,
 .action-button,
@@ -103,6 +106,7 @@ textarea,
     height: 2.75em;
     border: 4px solid #dddddd;
     padding: 1em;
+    width: 100%;
     outline: 0;
 
     -webkit-box-sizing: border-box;
@@ -112,6 +116,7 @@ textarea,
 
 input[type=submit],
 .action-button {
+    letter-spacing: 1px;
     padding: 0.5em;
     border: none;
     box-shadow: 0 4px 0 #8aa12d;
@@ -166,6 +171,7 @@ textarea {
     }
 
 table {
+    font-family: sans-serif;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
@@ -177,7 +183,7 @@ table a {
 
 td,
 th {
-    font-size: 0.75em;
+    font-size: 0.85em;
     border: 1px solid #dddddd;
     padding: 2px 10px;
     }
@@ -189,15 +195,46 @@ section {
 
 
 /* Modules */
+nav {
+    background-color: #8aa12d;
+
+    margin-bottom: 1.3em;
+    text-align: center;
+    }
+
+nav a {
+    font-family: "Andada_SC";
+    font-weight: bold;
+    color: #fffff8;
+    letter-spacing: 1px;
+    text-decoration: none;
+    padding: 0.125em 1em;
+    display: table-cell;
+    text-align: center;
+    border: 3px solid #8aa12d;
+    }
+
+    nav a:hover {
+
+        background-color: #fffff8;
+        color: #8aa12d;
+        }
+
+    .login,
+    .logout {
+        float: right;
+        }
+
 .task-section {
     border: 4px solid #dddddd;
     padding-right: 2em;
     padding-left: 2em;
     }
 
+.error,
 .delete {
     color: #e74c3c;
-}
+    }
 
 /* Print settings */
 @media print {

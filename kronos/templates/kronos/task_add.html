@@ -10,9 +10,9 @@
     {% csrf_token %}
     <input type="hidden" name="employee" value="{{ user.id }}">
 
-    <h3>Add task</h3>
+    <h1>Add task</h1>
     <section>
-        <h4>General info</h4>
+        <h3>General info</h3>
         <hr>
         <p>
             <label for="date">Date:</label>
@@ -45,7 +45,7 @@
         </p>
     </section>
     <section>
-        <h4>Time <em>(use 24-hr time)</em></h4>
+        <h3>Time <em>(use 24-hr time)</em></h3>
         <hr>
         <p>
             <label for="start_time">When did you start?</label><br>
@@ -57,7 +57,7 @@
         </p>
     </section>
     <section>
-        <h4>Labor classifications</h4>
+        <h3>Labor classifications</h3>
         <hr>
         <p>
             <label for="labor_item_number">Labor item number:</label>

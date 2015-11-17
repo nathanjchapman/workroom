@@ -1,6 +1,17 @@
 from django import forms
 from .models import Door, Code
 
+class DoorForm(forms.ModelForm):
+
+    class Meta:
+        model = Door
+        fields = ('address', 'location')
+        widgets = {
+            'location': forms.TextInput(attrs = {
+                'placeholder':'Front, back, etc.'
+                }),
+            }
+
 class CodeForm(forms.ModelForm):
 
     class Meta:

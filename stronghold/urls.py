@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^code/add/$', views.code_add, name="code_add"),
     url(r'^code/(?P<code_id>[0-9]+)/', include([
         url(r'^$', views.code_detail, name="code_detail"),
+        url(r'^delete/$', views.code_delete, name="code_delete"),
         ])),
 ]
