@@ -25,7 +25,7 @@ SECRET_KEY = 'ssvn$_^nfy-psrb9la83h@dg0hg=wbq^jo-y%wm=f3%t-(4+_s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nathanjc.pythonanywhere.com']
 
 
 # Application definition
