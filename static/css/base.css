@@ -236,6 +236,24 @@ nav a {
     color: #e74c3c;
     }
 
+/* **************** LAYOUT ***************** */
+@media only screen and (min-width: 34em) {
+    html {
+        font-size: 1.125em;
+        }
+
+    nav a {
+        display: inline;
+    }
+
+    }
+
+@media only screen and (min-width: 54em) {
+    }
+
+@media only screen and (min-width: 76em) {
+    }
+
 /* Print settings */
 @media print {
     header,
