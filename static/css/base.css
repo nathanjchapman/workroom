@@ -199,7 +199,6 @@ nav {
     background-color: #8aa12d;
 
     margin-bottom: 1.3em;
-    text-align: center;
     }
 
 nav a {
@@ -208,9 +207,8 @@ nav a {
     color: #fffff8;
     letter-spacing: 1px;
     text-decoration: none;
-    padding: 0.125em 1em;
-    display: table-cell;
-    text-align: center;
+    display: block;
+    max-width: 200px;
     border: 3px solid #8aa12d;
     }
 
@@ -242,13 +240,14 @@ nav a {
         font-size: 1.125em;
         }
 
-    nav a {
-        display: inline;
-    }
-
     }
 
 @media only screen and (min-width: 54em) {
+    nav a {
+        padding: 0.125em 1em;
+        display: table-cell;
+        text-align: center;
+    }
     }
 
 @media only screen and (min-width: 76em) {

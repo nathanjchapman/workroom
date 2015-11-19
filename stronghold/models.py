@@ -16,3 +16,8 @@ class Code(models.Model):
     def __str__(self):
         return "%d" % (self.number)
 
+    class Meta:
+        permissions = (
+            ('can_view_stronghold', "Can view Stronghold"),
+            )
+
