@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Address, Project
 from .forms import AddressForm, ProjectForm
 
+@login_required(login_url="/login/")
 def overview(request):
     p = Project.objects.all().filter(archived=False)
     a = Address.objects.all()
@@ -11,6 +13,7 @@ def overview(request):
         'addresses': a
         })
 
+@login_required(login_url="/login/")
 # /hq/project/add/
 def project_add(request):
     # if POST process data and create project
@@ -28,6 +31,7 @@ def project_add(request):
         form = ProjectForm()
         return render(request, 'hq/project_add.html', {'form': form.as_p()})
 
+@login_required(login_url="/login/")
 # /hq/address/add/
 def address_add(request):
     # if POST process data and create address
@@ -46,6 +50,7 @@ def address_add(request):
         form = AddressForm()
         return render(request, 'hq/address_add.html', {'form': form.as_p()})
 
+@login_required(login_url="/login/")
 def project_detail(request, project_id):
     try:
         project = Project.objects.get(pk=project_id)
@@ -55,6 +60,7 @@ def project_detail(request, project_id):
         'project': project
         })
 
+@login_required(login_url="/login/")
 def address_detail(request, address_id):
     try:
         address = Address.objects.get(pk=address_id)
@@ -64,6 +70,7 @@ def address_detail(request, address_id):
         'address': address
         })
 
+@login_required(login_url="/login/")
 # /hq/1/project/1/delete/
 # delete the project with id
 def project_delete(request, project_id):
@@ -71,12 +78,14 @@ def project_delete(request, project_id):
     p.delete()
     return HttpResponseRedirect('/hq/')
 
+@login_required(login_url="/login/")
 def project_archive(request, project_id):
     p = Project.objects.get(pk=project_id)
     p.archived = True
     p.save()
     return HttpResponseRedirect('/hq/')
 
+@login_required(login_url="/login/")
 # /hq/1/address/1/delete/
 # delete the address with id
 def address_delete(request, address_id):

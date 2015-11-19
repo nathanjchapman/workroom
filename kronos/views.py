@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Timecard, Task
@@ -7,6 +8,7 @@ from atom.models import LaborGroup, LaborItem, LaborClass
 
 # /kronos/
 # Overview of kronos
+@login_required(login_url="/login/")
 def overview(request):
     tcss = Timecard.objects.all().filter(employee=request.user)
     tcs = tcss.filter(complete=False)
@@ -16,6 +18,8 @@ def overview(request):
         'complete_timecards': ctcs
         })
 
+
+@login_required(login_url="/login/")
 # /kronos/timecard/add/
 def timecard_add(request):
     # if POST process data and create timecard
@@ -36,6 +40,8 @@ def timecard_add(request):
     else:
         return render(request, 'kronos/timecard_add.html')
 
+
+@login_required(login_url="/login/")
 # /kronos/1/
 def timecard_detail(request, timecard_id):
     tc = Timecard.objects.get(pk=timecard_id)
@@ -46,6 +52,8 @@ def timecard_detail(request, timecard_id):
         'tasks': tasks
         })
 
+
+@login_required(login_url="/login/")
 # /kronos/1/complete/
 # have to be a manager
 def timecard_complete(request, timecard_id):
@@ -68,6 +76,9 @@ def timecard_complete(request, timecard_id):
             'tasks': tasks
             })
 
+
+@permission_required('kronos.can_review_timecards')
+@login_required(login_url="/login/")
 # /kronos/1/review/
 # have to be a manager
 def timecard_review(request, timecard_id):
@@ -89,6 +100,8 @@ def timecard_review(request, timecard_id):
             'tasks': tasks
             })
 
+
+@login_required(login_url="/login/")
 # /kronos/complete/
 # return a list of completed timecards
 def timecard_complete_index(request):
@@ -98,6 +111,8 @@ def timecard_complete_index(request):
         raise Http404("No timecards does not exist.")
     return render(request, 'kronos/timecard_complete.html', {'timecards': tc})
 
+@permission_required('kronos.can_review_timecards')
+@login_required(login_url="/login/")
 # /kronos/timecards/
 # return a list of all timecards
 def timecard_index(request):
@@ -107,9 +122,11 @@ def timecard_index(request):
         raise Http404("Timecards do not exist.")
     return render(request, 'kronos/timecard_index.html', {'timecards': tcs})
 
+@login_required(login_url="/login/")
 def timecard_update(request, timecard_id):
     pass
 
+@login_required(login_url="/login/")
 # /kronos/task/add/
 def task_add(request, timecard_id):
     # if POST process data and create timecard
@@ -157,6 +174,7 @@ def task_add(request, timecard_id):
             'li_classes': li_classes
             })
 
+@login_required(login_url="/login/")
 # /kronos/1/delete/
 # deletes the timecard with id
 def timecard_delete(request, timecard_id):
@@ -164,6 +182,7 @@ def timecard_delete(request, timecard_id):
     t.delete()
     return HttpResponseRedirect('/kronos/')    
 
+@login_required(login_url="/login/")
 def task_detail(request, timecard_id, task_id):
     try:
         tc = Timecard.objects.get(pk=timecard_id)
@@ -176,6 +195,7 @@ def task_detail(request, timecard_id, task_id):
         })
 
 
+@login_required(login_url="/login/")
 # /kronos/1/task/1/delete/
 # delete the task with id
 def task_delete(request, timecard_id, task_id):
