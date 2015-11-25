@@ -39,11 +39,7 @@
         {% endif %}
         {% if not timecard.complete %}
             <p>
-                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add the first task</a>
-            </p>
-        {% elif not timecard.complete and tasks %}
-            <p>
-                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new task</a>
+                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new Task</a>
             </p>
         {% endif %}
     </section>
