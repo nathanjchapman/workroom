@@ -208,12 +208,15 @@ nav {
     }
 
 nav a {
+    font-size: 0.45em;
     font-variant: small-caps;
     font-weight: 900;
     color: #fffff8;
     letter-spacing: 1px;
     text-decoration: none;
-    display: block;
+    padding: 0.125em 1em;
+    display: table-cell;
+    text-align: center;
     max-width: 200px;
     border: 3px solid #8aa12d;
     }
@@ -278,10 +281,8 @@ nav a {
 
 @media only screen and (min-width: 54em) {
     nav a {
-        padding: 0.125em 1em;
-        display: table-cell;
-        text-align: center;
-    }
+        font-size: 1em;
+        }
     }
 
 @media only screen and (min-width: 76em) {
