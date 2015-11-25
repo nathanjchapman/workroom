@@ -4,14 +4,21 @@
     <h1>Timecards</h1>
 
     <section>
-        <h3>Your current timecard</h3>
         {% if timecards %}
-            <ul>
             {% for tc in timecards %}
-                <li>
-                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }}</a></li>
+                <p class="timecard_card">
+                    <a class="card" href="{% url 'kronos:timecard_detail' tc.id %}">
+                        <strong>{{ tc.pay_period_start|date:"M d" }} - {{ tc.pay_period_end|date:"d, Y" }}</strong><br>
+                        <small>
+                            {% if tc.task_set.count == 1 %}
+                                {{ tc.task_set.count }} task
+                            {% else %}
+                                {{ tc.task_set.count }} tasks
+                            {% endif %}
+                        </small>
+                    </a>
+                </p>
             {% endfor %}
-            </ul>
         {% else %}
             <p><em>You have no current timecard</em></p>
         {% endif %}
@@ -21,20 +28,8 @@
         </p>
     </section>
     <section>
-        <h3>Your completed timecards</h3>
-        {% if complete_timecards %}
-            <ul>
-            {% for tc in complete_timecards %}
-                <li>
-                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }}</a></li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p><em>You have no completed timecards</em></p>
-        {% endif %}
-
         <p>
-            <a href="{% url 'kronos:timecard_complete_index' %}">See all completed timecards</a>
+            <a href="{% url 'kronos:timecard_complete_index' %}">See your completed timecards</a>
         </p>
     </section>
 {% endblock %}
