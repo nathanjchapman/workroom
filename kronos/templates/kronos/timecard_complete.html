@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Wallyworks</h1>
-
+    <h1>Your completed timecards</h1>
     <section>
-        <h3>Your completed timecards</h3>
         {% if timecards %}
-            <ul>
             {% for tc in timecards %}
-                <li>
-                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start }} through {{ tc.pay_period_end }}</a></li>
+                <h3>
+                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start|date:"M d" }} - {{ tc.pay_period_end|date:"d, Y" }}</a>
+                </h3>
             {% endfor %}
-            </ul>
         {% else %}
             <p><em>You have no completed timecards</em></p>
         {% endif %}

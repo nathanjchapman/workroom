@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>HQ</h1>
+<h1>Projects</h1>
 <section>
-    <h3>Projects</h3>
     {% if projects %}
-        <ul>
         {% for project in projects %}
-            <li><a href="{% url 'hq:project_detail' project.id %}">{{ project }}</a></li>
+            <h3><a href="{% url 'hq:project_detail' project.id %}">{{ project }}</a></h3>
         {% endfor %}
-        </ul>
     {% else %}
         <p>There are no projects yet.</p>
     {% endif %}
@@ -29,7 +26,7 @@
         <p>There are no addresses yet.</p>
     {% endif %}
     <p>
-        <a class="action-button" href="{% url 'hq:address_add' %}">+ Add a new Address</a>
+        <a href="{% url 'hq:address_add' %}">+ Add a new Address</a>
     </p>
 </section>
 {% endblock %}

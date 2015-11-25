@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section>
-        <h1>Timecard</h1>
-        <h2>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</h2>
-        <h3>{{ timecard.pay_period_start }} through {{ timecard.pay_period_end }}</h3>
-        <p>
-            <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new task</a>
-        </p>
+    <section class="timecard-detail">
+        <h1>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}'s Timecard</h1>
+        <h2>{{ timecard.pay_period_start|date:"M d" }} - {{ timecard.pay_period_end|date:"d, Y" }}</h2>
         {% if tasks %}
             <table class="tasks">
                 <thead>
@@ -25,24 +21,33 @@
                 <tbody>
                 {% for task in tasks %}
                     <tr class="task">
-                        <td>{{ task.date }}</td>
+                        <td>{{ task.date|date:"M d" }}</td>
                         <td>{{ task.project }}</td>
                         <td>
                             <a href="{% url 'kronos:task_detail' timecard.id task.id %}">{{ task.description }}</a>
                         </td>
-                        <td>{{ task.start_time }}</td>
-                        <td>{{ task.end_time }}</td>
+                        <td>{{ task.start_time|date:"g:i A" }}</td>
+                        <td>{{ task.end_time|date:"g:i A" }}</td>
                         <td>{{ task.labor_item_number.number }}</td>
                         <td>{{ task.li_class.number }}</td>
                         <td>{{ task.get_hours }}</td>
                     </tr>
+                    <p>{{ task.total_hours }}</p>
                 {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p><em>You have no tasks</em></p>
+        {% endif %}
+        {% if not timecard.complete %}
+            <p>
+                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add the first task</a>
+            </p>
+        {% elif not timecard.complete and tasks %}
+            <p>
+                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new task</a>
+            </p>
         {% endif %}
     </section>
+    {% if not timecard.complete %}
     <section>
         <p>Ready to submit your timecard? Leave an optional note and hit the botton below.</p>
         <form method="post" action="{% url 'kronos:timecard_complete' timecard.id %}">
@@ -57,4 +62,5 @@
             </p>
         </form>
     </section>
+    {% endif %}
 {% endblock %}
