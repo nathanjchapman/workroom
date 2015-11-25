@@ -1,4 +1,4 @@
-@import url("../fonts/andada/stylesheet.css");                                   
+@import url("../fonts/eau/stylesheet.css");                                   
 
 html {
     font-size: 1.125em;
@@ -9,8 +9,8 @@ body {
     margin: 0.25in 1em;
 
 
-    background-color: #fffff8;
-    font-family: 'Andada', sans-serif;
+    background-color: #ffffe0;
+    font-family: 'eau_sans', sans-serif;
     font-weight: 400;
     line-height: 1.45;
     color: #111111;
@@ -27,33 +27,36 @@ h1,
 h2,
 h3,
 h4 {
-    margin: 1.414em 0 0.5em;
-    font-weight: inherit;
+    font-size: 1em;
+    margin: 0;
     line-height: 1.2;
-
+    margin-bottom: 1.3em;
     }
 
 h1 {
-    margin-top: 0;
-    font-size: 2.441em;
+    font-weight: 900;
+    text-transform: uppercase;
     }
 
 h2 {
-    font-size: 1.953em;
+    font-style: oblique;
+    font-weight: 900;
+    text-transform: uppercase;
     }
 
 h3 {
-    font-size: 1.563em;
+    font-weight: 700;
     }
 
 h4 {
-    font-size: 1.25em;
+    font-weight: 700;
+    font-style: oblique;
     }
 
 h5 {
     font-size: 1em;
     margin-bottom: 1.3em;
-    font-style: italic;
+    font-style: oblique;
     }
 
 a {
@@ -92,7 +95,7 @@ input {
     }
 
 label {
-    font-weight: bold;
+    font-weight: 700;
     }
 
 input[type=text],
@@ -116,10 +119,11 @@ textarea,
 
 input[type=submit],
 .action-button {
-    letter-spacing: 1px;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-weight: 900;
     padding: 0.5em;
     border: none;
-    box-shadow: 0 4px 0 #8aa12d;
     background-color: #8aa12d;
     color: #ffffff;
     cursor: pointer;
@@ -161,49 +165,51 @@ textarea {
     }
 
 ::-webkit-input-placeholder {
-    font-style: italic;
+    font-style: oblique;
     }
 ::-moz-input-placeholder {
-    font-style: italic;
+    font-style: oblique;
     }
 ::-ms-input-placeholder {
-    font-style: italic;
+    font-style: oblique;
     }
 
 table {
-    font-family: sans-serif;
+    background-color: #ffffff;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
+    margin-bottom: 1.3em;
     }
 
 table a {
     white-space: normal;
     }
-
+tr td {
+    border: 1px solid #dddddd;
+    }
 td,
 th {
+    text-align: left;
     font-size: 0.85em;
-    border: 1px solid #dddddd;
     padding: 2px 10px;
     }
 
 /* Major Elements */
 section {
-    padding-bottom: 1.3em;
+    margin-bottom: 3em;
     }
 
 
 /* Modules */
 nav {
     background-color: #8aa12d;
-
     margin-bottom: 1.3em;
     }
 
 nav a {
-    font-family: "Andada_SC";
-    font-weight: bold;
+    font-variant: small-caps;
+    font-weight: 900;
     color: #fffff8;
     letter-spacing: 1px;
     text-decoration: none;
@@ -213,7 +219,6 @@ nav a {
     }
 
     nav a:hover {
-
         background-color: #fffff8;
         color: #8aa12d;
         }
@@ -222,6 +227,35 @@ nav a {
     .logout {
         float: right;
         }
+
+.timecard_card {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px #cccccc;
+    background-color: #ffffff;
+    width: 200px;
+    height: 200px;
+ 
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+    }
+
+    .card {
+        display: block;
+        height: 100%;
+        text-decoration: none;
+        color: #111111;
+        padding: 1em;
+
+        }
+
+.timecard-detail {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 1em;
+    box-shadow: 0 0 4px #cccccc;
+    }
 
 .task-section {
     border: 4px solid #dddddd;
@@ -255,6 +289,8 @@ nav a {
 
 /* Print settings */
 @media print {
+    input,
+    .action-button,
     header,
     footer {
         display: none;
@@ -263,12 +299,11 @@ nav a {
         font-size: 12pt;
     }
     body {
-        margin: 1in;
         color: black;
     }
 
     a {
         text-decoration: none;
         color: black;
-    }
+        }
 }

@@ -5,6 +5,7 @@ from .models import Timecard, Task
 from django.contrib.auth.models import User
 from hq import models as hq_models
 from atom.models import LaborGroup, LaborItem, LaborClass
+from django.db.models import Sum
 
 # /kronos/
 # Overview of kronos

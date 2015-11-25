@@ -1,0 +1,77 @@
+
+@font-face {
+    font-family: 'eau_sans';
+    src: url('eau_sans_book-webfont.eot');
+    src: url('eau_sans_book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('eau_sans_book-webfont.woff2') format('woff2'),
+         url('eau_sans_book-webfont.woff') format('woff'),
+         url('eau_sans_book-webfont.ttf') format('truetype'),
+         url('eau_sans_book-webfont.svg#eausans_book') format('svg');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'eau_sans';
+    src: url('eau_sans_book_obl-webfont.eot');
+    src: url('eau_sans_book_obl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('eau_sans_book_obl-webfont.woff2') format('woff2'),
+         url('eau_sans_book_obl-webfont.woff') format('woff'),
+         url('eau_sans_book_obl-webfont.ttf') format('truetype'),
+         url('eau_sans_book_obl-webfont.svg#eausans_book_oblique') format('svg');
+    font-weight: 400;
+    font-style: oblique;
+
+}
+
+@font-face {
+    font-family: 'eau_sans';
+    src: url('eau_sans_black-webfont.eot');
+    src: url('eau_sans_black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('eau_sans_black-webfont.woff2') format('woff2'),
+         url('eau_sans_black-webfont.woff') format('woff'),
+         url('eau_sans_black-webfont.ttf') format('truetype'),
+         url('eau_sans_black-webfont.svg#eausans_black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'eau_sans';
+    src: url('eau_sans_black_obl-webfont.eot');
+    src: url('eau_sans_black_obl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('eau_sans_black_obl-webfont.woff2') format('woff2'),
+         url('eau_sans_black_obl-webfont.woff') format('woff'),
+         url('eau_sans_black_obl-webfont.ttf') format('truetype'),
+         url('eau_sans_black_obl-webfont.svg#eausans_black_oblique') format('svg');
+    font-weight: 900;
+    font-style: oblique;
+
+}
+
+@font-face {
+    font-family: 'eau_sans';
+    src: url('eau_sans_bold-webfont.eot');
+    src: url('eau_sans_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('eau_sans_bold-webfont.woff2') format('woff2'),
+         url('eau_sans_bold-webfont.woff') format('woff'),
+         url('eau_sans_bold-webfont.ttf') format('truetype'),
+         url('eau_sans_bold-webfont.svg#eausans_bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'eau_sans';
+    src: url('eau_sans_bold_obl-webfont.eot');
+    src: url('eau_sans_bold_obl-webfont.eot?#iefix') format('embedded-opentype'),
+         url('eau_sans_bold_obl-webfont.woff2') format('woff2'),
+         url('eau_sans_bold_obl-webfont.woff') format('woff'),
+         url('eau_sans_bold_obl-webfont.ttf') format('truetype'),
+         url('eau_sans_bold_obl-webfont.svg#eausans_bold_oblique') format('svg');
+    font-weight: 700;
+    font-style: oblique;
+
+}
