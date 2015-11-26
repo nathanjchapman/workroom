@@ -2,6 +2,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborClass
+from datetime import date
 
 class Timecard(models.Model):
     employee = models.ForeignKey(User)
@@ -12,6 +13,12 @@ class Timecard(models.Model):
     reviewed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    @property
+    def is_past_due(self):
+        if date.today() > self.pay_period_end:
+            return True
+        return False
 
     def __str__(self):
         return "Pay-period %s through %s." % (self.pay_period_start,

@@ -4,11 +4,11 @@
 }
 
 .datepickr-calendar {
-	font-family: 'Andada', sans-serif;
+	font-family: 'eau_sans', sans-serif;
 	font-size: 1em;
-	background-color: #fff;
-	color: #111111;
-	border: 4px solid #8aa12d;
+	background-color: #ffffff;
+	color: #2c3e50;
+	border: 4px solid #27ae60;
 	padding: 2px;
 	display: none;
 	position: absolute;
@@ -22,7 +22,7 @@
 }
 
 .datepickr-calendar .datepickr-months {
-	color: #111111;
+	color: #2c3e50;
 	padding: 2px;
 	text-align: center;
     font-size: 120%;
@@ -30,7 +30,7 @@
 
 .datepickr-calendar .datepickr-prev-month,
 .datepickr-calendar .datepickr-next-month {
-	color: #111111;
+	color: #2c3e50;
 	margin: 0;
 	text-decoration: none;
 	padding: 0.1em 0.4em 0.2em 0.4em;
@@ -51,8 +51,8 @@
 
 .datepickr-calendar .datepickr-prev-month:hover,
 .datepickr-calendar .datepickr-next-month:hover {
-	background-color: #8aa12d;
-	color: #fff;
+	background-color: #27ae60;
+	color: #ffffff;
 }
 
 .datepickr-calendar table {
@@ -85,35 +85,35 @@
 
 .datepickr-calendar .datepickr-day {
 	display: block;
-	color: #111111;
-	background-color: #fff;
-	border: 3px solid #ccc;
+	color: #2c3e50;
+	background-color: #ffffff;
+	border: 3px solid #bdc3c7;
 	padding: 5px;
 	cursor: pointer;
 }
 
 .datepickr-calendar .datepickr-day:hover {
-	color: #fff;
-	background-color: #8aa12d;
-	border: 3px solid #8aa12d;
+	color: #ffffff;
+	background-color: #27ae60;
+	border: 3px solid #27ae60;
 }
 
 .datepickr-calendar .today .datepickr-day {
-	background-color: #f39c12;
-	border: 3px solid #f39c12;
-	color: #fff;
+	background-color: #3498db;
+	border: 3px solid #3498db;
+	color: #ffffff;
 }
 
 .datepickr-calendar .selected .datepickr-day {
-	background-color: #8aa12d;
-	border-color: #8aa12d;
+	background-color: #27ae60;
+	border-color: #27ae60;
 	color: #ffffff;
 }
 
 .datepickr-calendar .disabled .datepickr-day,
 .datepickr-calendar .disabled .datepickr-day:hover {
     background-color: #eee;
-    border: 3px dotted #ccc;
+    border: 3px dotted #bdc3c7;
     color: #bbb;
     cursor: default;
 }

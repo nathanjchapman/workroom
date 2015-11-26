@@ -15,14 +15,17 @@
 </head>
 <body>
     <header>
-        <h1>WORKROOM</h1>
+        <!-- <a class="username" href="">{{ user.first_name }} {{ user.last_name }}</a> -->
+        <h1>
+            <a class="logo" href="{% url 'kronos:overview' %}">WORKROOM</a>
+        </h1>
         {% if user.is_authenticated %}
             <nav>
                 <p>
-                    <a class="logout" href="{% url 'logout' %}">logout</a>
-                    <a href="{% url 'kronos:overview' %}">timecards</a>
-                    <a href="{% url 'hq:overview' %}">projects</a>
-                    <a href="{% url 'atom:overview' %}">labor classes</a>
+                    <a class="logout" href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'kronos:overview' %}">Timecards</a>
+                    <a href="{% url 'hq:overview' %}">Projects</a>
+                    <a href="{% url 'atom:overview' %}">Labor Classes</a>
                     <!-- <a href="{% url 'stronghold:overview' %}">stronghold</a> -->
                 </p>
             </nav>
