@@ -5,7 +5,7 @@
     <section>
         {% if timecards %}
             {% for tc in timecards %}
-                <div class="timecard_card">
+                <p class="timecard_card">
                     <a class="card" href="{% url 'kronos:timecard_detail' tc.id %}">
                         <strong>{{ tc.pay_period_start|date:"M d" }} - {{ tc.pay_period_end|date:"d, Y" }}</strong><br>
                         <small>
@@ -19,7 +19,7 @@
                             {% endif %}
                         </small>
                     </a>
-                </div>
+                </p>
             {% endfor %}
         {% else %}
             <p><em>You have no current timecard</em></p>

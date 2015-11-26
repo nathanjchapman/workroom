@@ -8,7 +8,6 @@ body {
     max-width: 8.5in;
     margin: 0.25in 1em;
 
-
     background-color: #ecf0f1;
     font-family: 'eau_sans', sans-serif;
     font-weight: 400;
@@ -185,7 +184,9 @@ table {
 table a {
     white-space: normal;
     }
-
+tr td {
+    border: 1px solid #dddddd;
+    }
 td,
 th {
     text-align: left;
@@ -196,7 +197,6 @@ th {
 
 /* Major Elements */
 section {
-    clear: both;
     margin-bottom: 3em;
     }
 
