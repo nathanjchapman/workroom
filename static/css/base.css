@@ -9,11 +9,11 @@ body {
     margin: 0.25in 1em;
 
 
-    background-color: #ffffe0;
+    background-color: #ecf0f1;
     font-family: 'eau_sans', sans-serif;
     font-weight: 400;
     line-height: 1.45;
-    color: #111111;
+    color: #2c3e50;
     }
 
 /* Text Elements */
@@ -60,7 +60,7 @@ h5 {
     }
 
 a {
-    color: #8aa12d;
+    color: #27ae60;
     cursor: pointer;
     white-space: nowrap;
     }
@@ -70,7 +70,7 @@ small {
     }
 hr {
     margin: 0;
-    border: 2px solid #dddddd;
+    border: 2px solid #bdc3c7;
     }
 
 blockquote {
@@ -105,9 +105,9 @@ select[multiple=multiple],
 textarea,
 .action-button,
 .datepickr {
-    color: #111111;
+    color: #2c3e50;
     height: 2.75em;
-    border: 4px solid #dddddd;
+    border: 4px solid #bdc3c7;
     padding: 1em;
     width: 100%;
     outline: 0;
@@ -122,14 +122,14 @@ input[type=submit],
     text-transform: lowercase;
     font-variant: small-caps;
     font-weight: 900;
-    padding: 0.5em;
+    padding: 0.5em 1em;
     border: none;
-    background-color: #8aa12d;
+    background-color: #2ecc71;
     color: #ffffff;
     cursor: pointer;
     text-decoration: none;
 
-    box-shadow: 0 4px 0 #6E8330;
+    box-shadow: 0 4px 0 #27ae60;
     }
     
     input[type=submit]:active,
@@ -141,7 +141,7 @@ input[type=submit],
 
     input:focus,
     textarea:focus {
-        border-color: #8aa12d;
+        border-color: #2ecc71;
         }
 
 select[multiple=multiple] {
@@ -185,58 +185,46 @@ table {
 table a {
     white-space: normal;
     }
-tr td {
-    border: 1px solid #dddddd;
-    }
+
 td,
 th {
     text-align: left;
     font-size: 0.85em;
     padding: 2px 10px;
+    border: 1px solid #bdc3c7;
     }
 
 /* Major Elements */
 section {
+    clear: both;
     margin-bottom: 3em;
     }
 
 
 /* Modules */
 nav {
-    background-color: #8aa12d;
-    margin-bottom: 1.3em;
     }
 
 nav a {
-    font-size: 0.45em;
-    font-variant: small-caps;
-    font-weight: 900;
-    color: #fffff8;
-    letter-spacing: 1px;
-    text-decoration: none;
-    padding: 0.125em 1em;
-    display: table-cell;
-    text-align: center;
-    max-width: 200px;
-    border: 3px solid #8aa12d;
+    font-weight: 700;
+    font-size: 0.75em;
+    margin-right: 1.25em;
     }
 
-    nav a:hover {
-        background-color: #fffff8;
-        color: #8aa12d;
-        }
-
+    .username,
     .login,
     .logout {
         float: right;
+        margin-right: 0;
         }
 
 .timecard_card {
-    border: 1px solid #ccc;
-    box-shadow: 0 0 4px #cccccc;
+    border: 1px solid #bdc3c7;
+    box-shadow: 0 0 4px #bdc3c7;
     background-color: #ffffff;
     width: 200px;
     height: 200px;
+    margin-bottom: 1.3em;
  
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
@@ -248,27 +236,45 @@ nav a {
         display: block;
         height: 100%;
         text-decoration: none;
-        color: #111111;
+        color: #2c3e50;
         padding: 1em;
 
+       -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box; 
         }
 
 .timecard-detail {
-    border: 1px solid #ccc;
+    border: 1px solid #bdc3c7;
     background-color: #fff;
     padding: 1em;
-    box-shadow: 0 0 4px #cccccc;
+    box-shadow: 0 0 4px #bdc3c7;
     }
 
 .task-section {
-    border: 4px solid #dddddd;
+    border: 4px solid #bdc3c7;
     padding-right: 2em;
     padding-left: 2em;
     }
 
+.logo {
+    font-size: 1.414em;
+    color: #27ae60;
+    text-decoration: none;
+    }
+
+.warning {
+    color: #e67e22;
+    }
+
+.past-due {
+    font-weight: 700;
+    color: #c0392b;
+    }
+
 .error,
 .delete {
-    color: #e74c3c;
+    color: #c0392b;
     }
 
 /* **************** LAYOUT ***************** */
@@ -277,11 +283,15 @@ nav a {
         font-size: 1.125em;
         }
 
+    body {
+        margin: 0.5in auto;
+        }
+
     }
 
 @media only screen and (min-width: 54em) {
     nav a {
-        font-size: 1em;
+        font-size: 0.85em;
         }
     }
 
@@ -290,6 +300,8 @@ nav a {
 
 /* Print settings */
 @media print {
+    @page { size: landscape }
+    
     input,
     .action-button,
     header,
@@ -300,6 +312,7 @@ nav a {
         font-size: 12pt;
     }
     body {
+        width: 100%;
         color: black;
     }
 
