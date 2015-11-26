@@ -2,7 +2,6 @@
 
 {% block content %}
     <h1>Timecards</h1>
-    <a class="completed-timecards" href="{% url 'kronos:timecard_complete_index' %}">Completed timecards…</a>
     <section>
         {% if timecards %}
             {% for tc in timecards %}
@@ -25,10 +24,13 @@
         {% else %}
             <p><em>You have no current timecard</em></p>
         {% endif %}
+        <p>
+            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
+        </p>
     </section>
     <section>
         <p>
-            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
+            <a class="completed-timecards" href="{% url 'kronos:timecard_complete_index' %}">Completed timecards…</a>
         </p>
     </section>
 {% endblock %}
