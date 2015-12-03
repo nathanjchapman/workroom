@@ -42,8 +42,8 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    def get_hours(self):
-        # returns time in hours as a float
+    def get_task_duration(self):
+        # returns task duration in hours as a float
         return (self.end_time - self.start_time).seconds / 3600
 
     def __str__(self):

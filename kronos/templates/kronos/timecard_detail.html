@@ -30,7 +30,7 @@
                         <td>{{ task.end_time|date:"g:i A" }}</td>
                         <td>{{ task.labor_item_number.number }}</td>
                         <td>{{ task.li_class.number }}</td>
-                        <td>{{ task.get_hours }}</td>
+                        <td>{{ get_task_duration }}</td>
                     </tr>
                     <p>{{ task.total_hours }}</p>
                 {% endfor %}
