@@ -14,6 +14,13 @@ class Timecard(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def get_total_tasks_duration(self):
+        # returns the total time of all tasks
+        for task in Task.objects.filter(timecard__pk=self.id):
+            total += task.get_task_duration()
+        return total
+        del total
+
     @property
     def is_past_due(self):
         if date.today() > self.pay_period_end:
