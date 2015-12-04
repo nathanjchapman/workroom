@@ -107,7 +107,7 @@ def timecard_review(request, timecard_id):
 # return a list of completed timecards
 def timecard_complete_index(request):
     try:
-        tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True)
+        tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True, employee=request.user)
     except Timecard.DoesNotExist:
         raise Http404("No timecards does not exist.")
     return render(request, 'kronos/timecard_complete.html', {'timecards': tc})
