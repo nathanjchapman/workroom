@@ -33,7 +33,7 @@ class Timecard(models.Model):
 
     class Meta:
         permissions = (
-            ('can_review_timecards', "Can review timecards."),
+            ('can_review_timecards', "Can review timecards"),
             )
 
 class Task(models.Model):
