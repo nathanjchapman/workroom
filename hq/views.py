@@ -14,9 +14,10 @@ def overview(request):
         })
 
 @login_required(login_url="/login/")
-# /hq/project/add/
 def project_add(request):
-    # if POST process data and create project
+    """/hq/project/add/
+    If POST process data and create project.
+    """
     if request.method == "POST":
 
         f = ProjectForm(request.POST)
@@ -32,9 +33,10 @@ def project_add(request):
         return render(request, 'hq/project_add.html', {'form': form.as_p()})
 
 @login_required(login_url="/login/")
-# /hq/address/add/
 def address_add(request):
-    # if POST process data and create address
+    """/hq/address/add/
+    If POST process data and create address.
+    """
     if request.method == "POST":
 
 
@@ -71,9 +73,10 @@ def address_detail(request, address_id):
         })
 
 @login_required(login_url="/login/")
-# /hq/1/project/1/delete/
-# delete the project with id
 def project_delete(request, project_id):
+    """/hq/1/project/1/delete/
+    Delete the project with id.
+    """
     p = Project.objects.get(pk=project_id)
     p.delete()
     return HttpResponseRedirect('/hq/')
@@ -86,9 +89,10 @@ def project_archive(request, project_id):
     return HttpResponseRedirect('/hq/')
 
 @login_required(login_url="/login/")
-# /hq/1/address/1/delete/
-# delete the address with id
 def address_delete(request, address_id):
+    """/hq/1/address/1/delete/
+    Delete the address with id.
+    """
     a = Address.objects.get(pk=address_id)
     a.delete()
     return HttpResponseRedirect('/hq/')

@@ -7,10 +7,11 @@ from hq import models as hq_models
 from atom.models import LaborGroup, LaborItem, LaborClass
 from django.db.models import Sum
 
-# /kronos/
-# Overview of kronos
 @login_required(login_url="/login/")
 def overview(request):
+    """/kronos/
+    Return overview render.
+    """
     tcss = Timecard.objects.all().filter(employee=request.user)
     tcs = tcss.filter(complete=False)
     ctcs = tcss.order_by('-pay_period_start').filter(complete=True)[:3]
@@ -19,15 +20,14 @@ def overview(request):
         'complete_timecards': ctcs
         })
 
-
 @login_required(login_url="/login/")
-# /kronos/timecard/add/
 def timecard_add(request):
-    # if POST process data and create timecard
+    """/kronos/timecard/add/
+    If POST, process data and create timecard.
+    """
     if request.method == "POST":
         pay_period_start = request.POST["pay_period_start"]
         pay_period_end = request.POST["pay_period_end"]
-
 
         tc = Timecard.objects.create(
             employee=request.user,
@@ -41,10 +41,11 @@ def timecard_add(request):
     else:
         return render(request, 'kronos/timecard_add.html')
 
-
 @login_required(login_url="/login/")
-# /kronos/1/
 def timecard_detail(request, timecard_id):
+    """/kronos/1/
+    Return timecard detail render.
+    """
     tc = Timecard.objects.get(pk=timecard_id)
     tasks = Task.objects.all().filter(timecard=tc).order_by('date')
 
@@ -53,12 +54,12 @@ def timecard_detail(request, timecard_id):
         'tasks': tasks
         })
 
-
 @login_required(login_url="/login/")
-# /kronos/1/complete/
-# have to be a manager
 def timecard_complete(request, timecard_id):
-    # if POST process data
+    """/kronos/1/complete/
+    Have to be a manager.
+    If POST process data.
+    """
     if request.method == "POST":
         tc = Timecard.objects.get(pk=timecard_id)
         tc.submission_notes = request.POST["submission_notes"]
@@ -77,13 +78,13 @@ def timecard_complete(request, timecard_id):
             'tasks': tasks
             })
 
-
 @permission_required('kronos.can_review_timecards')
 @login_required(login_url="/login/")
-# /kronos/1/review/
-# have to be a manager
 def timecard_review(request, timecard_id):
-    # if POST process data
+    """/kronos/1/review/
+    Have to be a manager.
+    If POST, timecard_id, mark timecard as reviewed.
+    """
     if request.method == "POST":
         tc = Timecard.objects.get(pk=timecard_id)
         tc.reviewed = True
@@ -101,11 +102,11 @@ def timecard_review(request, timecard_id):
             'tasks': tasks
             })
 
-
 @login_required(login_url="/login/")
-# /kronos/complete/
-# return a list of completed timecards
 def timecard_complete_index(request):
+    """/kronos/complete/
+    Return a list of completed timecards.
+    """
     try:
         tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True, employee=request.user)
     except Timecard.DoesNotExist:
@@ -114,9 +115,10 @@ def timecard_complete_index(request):
 
 @permission_required('kronos.can_review_timecards')
 @login_required(login_url="/login/")
-# /kronos/timecards/
-# return a list of all timecards
 def timecard_index(request):
+    """/kronos/timecards/
+    Return a list of all timecards.
+    """
     try:
         tcs = Timecard.objects.order_by('-pay_period_start')
     except Timecard.DoesNotExist:
@@ -128,9 +130,10 @@ def timecard_update(request, timecard_id):
     pass
 
 @login_required(login_url="/login/")
-# /kronos/task/add/
 def task_add(request, timecard_id):
-    # if POST process data and create timecard
+    """/kronos/task/add/
+    If POST process data and add task to timecard.
+    """
     if request.method == "POST":
         employee = request.POST["employee"]
         date = request.POST["date"]
@@ -146,8 +149,6 @@ def task_add(request, timecard_id):
         timecard = Timecard.objects.get(id=timecard_id)
         labor_item = LaborItem.objects.get(id=labor_item_id)
         li_class = LaborClass(id=li_class_id)
-
-
 
         t = Task.objects.create(
             employee=user,
@@ -176,9 +177,10 @@ def task_add(request, timecard_id):
             })
 
 @login_required(login_url="/login/")
-# /kronos/1/delete/
-# deletes the timecard with id
 def timecard_delete(request, timecard_id):
+    """/kronos/1/delete/
+    Deletes the timecard with id.
+    """
     t = Timecard.objects.get(pk=timecard_id)
     t.delete()
     return HttpResponseRedirect('/kronos/')    
@@ -195,11 +197,11 @@ def task_detail(request, timecard_id, task_id):
         'task': task
         })
 
-
 @login_required(login_url="/login/")
-# /kronos/1/task/1/delete/
-# delete the task with id
 def task_delete(request, timecard_id, task_id):
+    """/kronos/1/task/1/delete/
+    Delete the task with id.
+    """
     t = Task.objects.get(pk=task_id)
     t.delete()
     return HttpResponseRedirect('/kronos/') 

@@ -2,7 +2,6 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborClass
-from datetime import date
 
 class Timecard(models.Model):
     employee = models.ForeignKey(User)
@@ -13,6 +12,14 @@ class Timecard(models.Model):
     reviewed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def get_total_tasks_duration(self):
+        """Return the total time duration of all tasks in hours as a float."""
+        total = 0
+        for task in Task.objects.filter(timecard__pk=self.id):
+            total += task.get_task_duration()
+        return total
+        del total
 
     @property
     def is_past_due(self):
@@ -42,12 +49,9 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    def get_hours(self):
-        return todatetime(self.end_time) - todatetime(self.start_time)
+    def get_task_duration(self):
+        """Return the task duration in hours as a float"""
+        return (self.end_time - self.start_time).seconds / 3600
 
     def __str__(self):
         return self.description
-
-def todatetime(time):
-    return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, 
-        microsecond=time.microsecond, tzinfo=time.tzinfo)
