@@ -20,4 +20,3 @@ class Code(models.Model):
         permissions = (
             ('can_view_stronghold', "Can view Stronghold"),
             )
-

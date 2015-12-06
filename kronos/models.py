@@ -2,7 +2,6 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborClass
-from datetime import date, timedelta
 
 class Timecard(models.Model):
     employee = models.ForeignKey(User)
@@ -15,7 +14,8 @@ class Timecard(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def get_total_tasks_duration(self):
-        # returns the total time of all tasks
+        """Return the total time duration of all tasks in hours as a float."""
+        total = 0
         for task in Task.objects.filter(timecard__pk=self.id):
             total += task.get_task_duration()
         return total
@@ -33,7 +33,7 @@ class Timecard(models.Model):
 
     class Meta:
         permissions = (
-            ('can_review_timecards', "Can review timecards"),
+            ('can_review_timecards', "Can review timecards."),
             )
 
 class Task(models.Model):
@@ -50,7 +50,7 @@ class Task(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def get_task_duration(self):
-        # returns task duration in hours as a float
+        """Return the task duration in hours as a float"""
         return (self.end_time - self.start_time).seconds / 3600
 
     def __str__(self):

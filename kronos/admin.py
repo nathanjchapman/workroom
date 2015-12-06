@@ -3,4 +3,3 @@ from .models import Timecard, Task
 
 admin.site.register(Timecard)
 admin.site.register(Task)
-
