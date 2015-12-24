@@ -36,6 +36,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            <p>
+                {{ timecard.get_total_tasks_duration }}
+            </p>
         {% endif %}
         {% if not timecard.complete %}
             <p>

@@ -23,7 +23,7 @@ class Timecard(models.Model):
 
     @property
     def is_past_due(self):
-        if date.today() > self.pay_period_end:
+        if datetime.date.today() > self.pay_period_end:
             return True
         return False
 
