@@ -114,6 +114,7 @@ EMAIL_PORT = 1025
 DEFAULT_FROM_EMAIL = 'webmaster@wallyworks.net'
 LOGIN_REDIRECT_URL = '/kronos/'
 LOGOUT_URL = '/login/'
+LOGIN_URL = '/login/'
 
 # SECURE_HSTS_SECONDS = 30
 # SECURE_CONTENT_TYPE_NOSNIFF = True
