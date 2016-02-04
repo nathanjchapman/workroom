@@ -4,11 +4,16 @@ from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborClass
 from datetime import date
 
+# class PayPeriod(models.Model):
+#     start = models.DateField()
+#     end = models.DateField()
+
 class Timecard(models.Model):
     employee = models.ForeignKey(User)
+    # pay_period = models.ForeignKey(PayPeriod)
+    submission_notes = models.TextField(blank=True)
     pay_period_start = models.DateField()
     pay_period_end = models.DateField()
-    submission_notes = models.TextField(blank=True)
     complete = models.BooleanField(default=False)
     reviewed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
