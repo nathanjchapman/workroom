@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Timecard, Task
+from .models import PayPeriod, Timecard, Task
 from django.contrib.auth.models import User
 from hq import models as hq_models
 from atom.models import LaborGroup, LaborItem, LaborClass
@@ -11,11 +11,10 @@ from django.db.models import Sum
 # Overview of kronos
 @login_required(login_url="/login/")
 def overview(request):
-    tcss = Timecard.objects.all().filter(employee=request.user)
-    tcs = tcss.filter(complete=False)
+    tcss = Timecard.objects.all().filter(employee=request.user, complete=False)
     ctcs = tcss.order_by('-pay_period_start').filter(complete=True)[:3]
     return render(request, 'kronos/overview.html', {
-        'timecards': tcs,
+        'timecards': tcss,
         'complete_timecards': ctcs
         })
 
@@ -25,21 +24,20 @@ def overview(request):
 def timecard_add(request):
     # if POST process data and create timecard
     if request.method == "POST":
-        pay_period_start = request.POST["pay_period_start"]
-        pay_period_end = request.POST["pay_period_end"]
-
+        p = request.POST["pay_period"]
+        pay_period = PayPeriod.objects.get(pk=p)
 
         tc = Timecard.objects.create(
             employee=request.user,
-            pay_period_start=pay_period_start,
-            pay_period_end=pay_period_end
+            pay_period=pay_period
             )
         tc.save()
 
         return HttpResponseRedirect('/kronos/%s' % (tc.id))
 
     else:
-        return render(request, 'kronos/timecard_add.html')
+        pay_periods = PayPeriod.objects.order_by('-start')[:3]
+        return render(request, 'kronos/timecard_add.html', {'pay_periods': pay_periods})
 
 
 @login_required(login_url="/login/")
@@ -118,10 +116,10 @@ def timecard_complete_index(request):
 # return a list of all timecards
 def timecard_index(request):
     try:
-        tcs = Timecard.objects.order_by('-pay_period_start')
-    except Timecard.DoesNotExist:
+        pp = PayPeriod.objects.order_by('-start')
+    except PayPeriod.DoesNotExist:
         raise Http404("Timecards do not exist.")
-    return render(request, 'kronos/timecard_index.html', {'timecards': tcs})
+    return render(request, 'kronos/timecard_index.html', {'pay_periods': pp})
 
 @login_required(login_url="/login/")
 def timecard_update(request, timecard_id):

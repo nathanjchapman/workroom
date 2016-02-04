@@ -3,7 +3,7 @@
 {% block content %}
     <section class="timecard-detail">
         <h1>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}'s Timecard</h1>
-        <h2>{{ timecard.pay_period_start|date:"M d" }} - {{ timecard.pay_period_end|date:"d, Y" }}</h2>
+        <h2>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</h2>
         {% if tasks %}
             <table class="tasks">
                 <thead>
