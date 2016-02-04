@@ -13,15 +13,14 @@
             {% csrf_token %}
             <input type="hidden" name="employee" value="{{ user.id }}">
             <p>
-                <label for="pay_period_start">Pay period start:</label>
-                <br>
-                <input name="pay_period_start" class="datepickr" placeholder="Jan 1, 2000">
-            </p>
-
-            <p>
-                <label for="pay_period_end">Pay period end:</label>
-                <br>
-                <input name="pay_period_end" class="datepickr" placeholder="Jan 1, 2000">
+                <select name="pay_period" required>
+                <option value="" selected="selected">-------</option>
+                {% if pay_periods %}
+                    {% for pay_period in pay_periods %}
+                        <option value="{{ pay_period.id }}">{{ pay_period.start|date:"M d" }} - {{ pay_period.end|date:"d, Y" }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
             </p>
             <p>
                 <input type="submit" value="Add this Timecard">

@@ -6,7 +6,7 @@
     <section>
         {% if pay_periods %}
         {% for pp in pay_periods %}
-            <h3>{{ pp.start }} to {{ pp.end }}</h3>
+            <h3>{{ pp.start|date:"M d" }} - {{ pp.end|date:"d, Y" }}</h3>
             <ul>
                 {% for timecard in pp.timecard_set.all %}
                 <li>

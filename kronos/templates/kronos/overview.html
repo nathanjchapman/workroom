@@ -7,7 +7,7 @@
             {% for tc in timecards %}
                 <p class="timecard_card">
                     <a class="card" href="{% url 'kronos:timecard_detail' tc.id %}">
-                        <strong>{{ tc.pay_period_start|date:"M d" }} - {{ tc.pay_period_end|date:"d, Y" }}</strong><br>
+                        <strong>{{ tc.pay_period.start|date:"M d" }} - {{ tc.pay_period.end|date:"d, Y" }}</strong><br>
                         <small>
                             {% if tc.task_set.count == 1 %}
                                 {{ tc.task_set.count }} task<br>

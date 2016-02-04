@@ -24,21 +24,20 @@ def overview(request):
 def timecard_add(request):
     # if POST process data and create timecard
     if request.method == "POST":
-        pay_period_start = request.POST["pay_period_start"]
-        pay_period_end = request.POST["pay_period_end"]
-
+        p = request.POST["pay_period"]
+        pay_period = PayPeriod.objects.get(pk=p)
 
         tc = Timecard.objects.create(
             employee=request.user,
-            pay_period_start=pay_period_start,
-            pay_period_end=pay_period_end
+            pay_period=pay_period
             )
         tc.save()
 
         return HttpResponseRedirect('/kronos/%s' % (tc.id))
 
     else:
-        return render(request, 'kronos/timecard_add.html')
+        pay_periods = PayPeriod.objects.order_by('-start')[:3]
+        return render(request, 'kronos/timecard_add.html', {'pay_periods': pay_periods})
 
 
 @login_required(login_url="/login/")

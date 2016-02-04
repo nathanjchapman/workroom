@@ -85,7 +85,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'workroom',
+        'NAME': 'nathanjc$default',
         'USER': 'nathanjc',
         'PASSWORD': 'weight-pickax-sparrow',
         'HOST': 'nathanjc.mysql.pythonanywhere-services.com',
