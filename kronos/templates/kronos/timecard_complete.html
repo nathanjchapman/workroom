@@ -4,9 +4,9 @@
     <h1>Your completed timecards</h1>
     <section>
         {% if timecards %}
-            {% for tc in timecards %}
+            {% for timecard in timecards %}
                 <h3>
-                    <a href="{% url 'kronos:timecard_detail' tc.id %}">{{ tc.pay_period_start|date:"M d" }} - {{ tc.pay_period_end|date:"d, Y" }}</a>
+                    <a href="{% url 'kronos:timecard_detail' timecard.id %}">{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</a>
                 </h3>
             {% endfor %}
         {% else %}

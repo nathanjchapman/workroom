@@ -73,6 +73,11 @@ hr {
     }
 
 blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd;
+    margin: 1.5em 0;
+    padding: 0 15px;
     font-family: serif;
     }
 

@@ -11,11 +11,9 @@ from django.db.models import Sum
 # Overview of kronos
 @login_required(login_url="/login/")
 def overview(request):
-    tcss = Timecard.objects.all().filter(employee=request.user, complete=False)
-    ctcs = tcss.order_by('-pay_period_start').filter(complete=True)[:3]
+    timecards = Timecard.objects.all().filter(employee=request.user, complete=False)
     return render(request, 'kronos/overview.html', {
-        'timecards': tcss,
-        'complete_timecards': ctcs
+        'timecards': timecards
         })
 
 
@@ -27,13 +25,13 @@ def timecard_add(request):
         p = request.POST["pay_period"]
         pay_period = PayPeriod.objects.get(pk=p)
 
-        tc = Timecard.objects.create(
+        timecard = Timecard.objects.create(
             employee=request.user,
             pay_period=pay_period
             )
-        tc.save()
+        timecard.save()
 
-        return HttpResponseRedirect('/kronos/%s' % (tc.id))
+        return HttpResponseRedirect('/kronos/%s' % (timecard.id))
 
     else:
         pay_periods = PayPeriod.objects.order_by('-start')[:3]
@@ -43,11 +41,11 @@ def timecard_add(request):
 @login_required(login_url="/login/")
 # /kronos/1/
 def timecard_detail(request, timecard_id):
-    tc = Timecard.objects.get(pk=timecard_id)
-    tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+    timecard = Timecard.objects.get(pk=timecard_id)
+    tasks = Task.objects.all().filter(timecard=timecard).order_by('date')
 
     return render(request, 'kronos/timecard_detail.html', {
-        'timecard': tc,
+        'timecard': timecard,
         'tasks': tasks
         })
 
@@ -58,20 +56,20 @@ def timecard_detail(request, timecard_id):
 def timecard_complete(request, timecard_id):
     # if POST process data
     if request.method == "POST":
-        tc = Timecard.objects.get(pk=timecard_id)
-        tc.submission_notes = request.POST["submission_notes"]
-        tc.complete = True
-        tc.save()
+        timecard = Timecard.objects.get(pk=timecard_id)
+        timecard.submission_notes = request.POST["submission_notes"]
+        timecard.complete = True
+        timecard.save()
 
         return HttpResponseRedirect('/kronos/')
     else:
         try:
-            tc = Timecard.objects.get(pk=timecard_id)
-            tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+            timecard = Timecard.objects.get(pk=timecard_id)
+            tasks = Task.objects.all().filter(timecard=timecard).order_by('date')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
         return render(request, 'kronos/timecard_review.html', {
-            'timecard': tc,
+            'timecard': timecard,
             'tasks': tasks
             })
 
@@ -83,19 +81,19 @@ def timecard_complete(request, timecard_id):
 def timecard_review(request, timecard_id):
     # if POST process data
     if request.method == "POST":
-        tc = Timecard.objects.get(pk=timecard_id)
-        tc.reviewed = True
-        tc.save()
+        timecard = Timecard.objects.get(pk=timecard_id)
+        timecard.reviewed = True
+        timecard.save()
 
         return HttpResponseRedirect('/kronos/')
     else:
         try:
-            tc = Timecard.objects.get(pk=timecard_id)
-            tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+            timecard = Timecard.objects.get(pk=timecard_id)
+            tasks = Task.objects.all().filter(timecard=timecard).order_by('date')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
         return render(request, 'kronos/timecard_review.html', {
-            'timecard': tc,
+            'timecard': timecard,
             'tasks': tasks
             })
 
@@ -105,10 +103,10 @@ def timecard_review(request, timecard_id):
 # return a list of completed timecards
 def timecard_complete_index(request):
     try:
-        tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True, employee=request.user)
+        timecard = Timecard.objects.order_by('-pay_period').filter(complete=True, employee=request.user)
     except Timecard.DoesNotExist:
         raise Http404("No timecards does not exist.")
-    return render(request, 'kronos/timecard_complete.html', {'timecards': tc})
+    return render(request, 'kronos/timecard_complete.html', {'timecards': timecard})
 
 @permission_required('kronos.can_review_timecards')
 @login_required(login_url="/login/")

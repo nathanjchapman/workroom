@@ -4,6 +4,11 @@
     <section class="timecard-detail">
         <h1>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}'s Timecard</h1>
         <h2>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</h2>
+        {% if timecard.submission_notes %}
+            <blockquote cite="{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}">{{ timecard.submission_notes }}<br>
+                —{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}
+            </blockquote>
+        {% endif %}
         {% if tasks %}
             <table class="tasks">
                 <thead>

@@ -4,17 +4,17 @@
     <h1>Timecards</h1>
     <section>
         {% if timecards %}
-            {% for tc in timecards %}
+            {% for timecard in timecards %}
                 <p class="timecard_card">
-                    <a class="card" href="{% url 'kronos:timecard_detail' tc.id %}">
-                        <strong>{{ tc.pay_period.start|date:"M d" }} - {{ tc.pay_period.end|date:"d, Y" }}</strong><br>
+                    <a class="card" href="{% url 'kronos:timecard_detail' timecard.id %}">
+                        <strong>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</strong><br>
                         <small>
-                            {% if tc.task_set.count == 1 %}
-                                {{ tc.task_set.count }} task<br>
+                            {% if timecard.task_set.count == 1 %}
+                                {{ timecard.task_set.count }} task<br>
                             {% else %}
-                                {{ tc.task_set.count }} tasks<br>
+                                {{ timecard.task_set.count }} tasks<br>
                             {% endif %}
-                            {% if tc.is_past_due %}
+                            {% if timecard.is_past_due %}
                                 <span class="past-due">Past due</span>
                             {% endif %}
                         </small>
