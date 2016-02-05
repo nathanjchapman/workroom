@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Timecard</h1>
-    <section>
-        <h4>Task Details</h4>
-        <hr>
+    <section class="timecard-detail">
+        <h1>Task Details</h1>
         <p>
-            {{ task.started|date:"M d" }}<br>
-            {{ task.started|date:"g:i A" }} to {{ task.finished|date:"g:i A" }}<br>
-            {{ task.project.name }} project</p>
-        <blockquote>{{ task.description }}</blockquote>
-        <p>LI number: <strong>{{ task.labor_item_number }}</strong></p>
-        <p>L&I class: <strong>{{ task.li_class }}</strong></p>
-    </section>
-    <section>
-        {{ task.get_hours }}
+            Date <strong>{{ task.started|date:"M d" }}</strong><br>
+            Project <strong>{{ task.project.name }}</strong><br>
+            Started <strong>{{ task.started|date:"g:i A" }}</strong><br>
+            Finished <strong>{{ task.finished|date:"g:i A" }}</strong><br>
+            Total time <strong>{{ task.get_task_duration }} hrs</strong>.
+        </p>
+        <h4></h4>
+        <p><strong>Worked on</strong>: {{ task.description }}</p>
+        <p>LI number <strong>{{ task.labor_item_number }}</strong></p>
+        <p>L&I class <strong>{{ task.li_class }}</strong></p>
     </section>
     <section>
         <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}">x delete this task</a>

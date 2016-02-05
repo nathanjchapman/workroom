@@ -21,6 +21,14 @@ class Timecard(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def get_total_tasks_duration(self):
+        """Return the total time duration of all tasks in hours as a float."""
+        total = 0
+        for task in Task.objects.filter(timecard__pk=self.id):
+            total += task.get_task_duration()
+        return total
+        del total
+
     @property
     def is_past_due(self):
         if date.today() > self.pay_period.end:
@@ -48,8 +56,9 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    def get_hours(self):
-        return self.finished - self.started
+    def get_task_duration(self):
+        """Return the task duration in hours as a float"""
+        return round((self.finished - self.started).seconds / 3600, 2)
 
     def __str__(self):
         return self.description

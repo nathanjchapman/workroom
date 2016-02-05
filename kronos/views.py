@@ -86,7 +86,7 @@ def timecard_review(request, timecard_id):
         timecard.reviewed = True
         timecard.save()
 
-        return HttpResponseRedirect('/kronos/')
+        return HttpResponseRedirect('/kronos/timecards/')
     else:
         try:
             timecard = Timecard.objects.get(pk=timecard_id)

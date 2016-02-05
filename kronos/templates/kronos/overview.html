@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if perms.kronos.can_review_timecards %}
+    <a class="review-timecards" href="{% url 'kronos:timecard_index' %}">Review Timecards</a>
+    {% endif %}
     <h1>Timecards</h1>
     <section>
         {% if timecards %}
@@ -14,8 +17,9 @@
                             {% else %}
                                 {{ timecard.task_set.count }} tasks<br>
                             {% endif %}
+                            {{ timecard.get_total_tasks_duration }} hrs<br>
                             {% if timecard.is_past_due %}
-                                <span class="past-due">Past due</span>
+                                <span class="past-due">Past due!</span><br>
                             {% endif %}
                         </small>
                     </a>

@@ -10,7 +10,12 @@
             <ul>
                 {% for timecard in pp.timecard_set.all %}
                 <li>
-                    <a href="{% url 'kronos:timecard_detail' timecard.id %}">{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</a>
+                    <a href="{% url 'kronos:timecard_review' timecard.id %}">{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</a>
+                    <small>
+                        {% if not timecard.reviewed %}
+                            <span class="not-reviewed">&#10007; not reviewed</span>
+                        {% endif %}
+                    </small>
                 </li>
                 {% endfor %}
             </ul>

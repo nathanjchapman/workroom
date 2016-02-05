@@ -35,12 +35,12 @@
                         <td>{{ task.started|date:"g:i A" }}</td>
                         <td>{{ task.finished|date:"g:i A" }}</td>
                         <td>{{ task.li_class.number }}</td>
-                        <td>{{ task.get_hours }}</td>
+                        <td>{{ task.get_task_duration }} hrs.</td>
                     </tr>
-                    <p>{{ task.total_hours }}</p>
                 {% endfor %}
                 </tbody>
             </table>
+            <p><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
         {% endif %}
         {% if not timecard.complete %}
             <p>
