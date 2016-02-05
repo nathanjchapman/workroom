@@ -26,14 +26,14 @@
                 <tbody>
                 {% for task in tasks %}
                     <tr class="task">
-                        <td>{{ task.date|date:"M d" }}</td>
+                        <td>{{ task.started|date:"M d" }}</td>
                         <td>{{ task.project }}</td>
                         <td>{{ task.labor_item_number.number }}</td>
                         <td>
                             <a href="{% url 'kronos:task_detail' timecard.id task.id %}">{{ task.description }}</a>
                         </td>
-                        <td>{{ task.start_time|date:"g:i A" }}</td>
-                        <td>{{ task.end_time|date:"g:i A" }}</td>
+                        <td>{{ task.started|date:"g:i A" }}</td>
+                        <td>{{ task.finished|date:"g:i A" }}</td>
                         <td>{{ task.li_class.number }}</td>
                         <td>{{ task.get_hours }}</td>
                     </tr>

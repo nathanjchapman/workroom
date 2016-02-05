@@ -6,8 +6,8 @@
         <h4>Task Details</h4>
         <hr>
         <p>
-            {{ task.date }}<br>
-            {{ task.start_time }} to {{ task.end_time }}<br>
+            {{ task.started|date:"M d" }}<br>
+            {{ task.started|date:"g:i A" }} to {{ task.finished|date:"g:i A" }}<br>
             {{ task.project.name }} project</p>
         <blockquote>{{ task.description }}</blockquote>
         <p>LI number: <strong>{{ task.labor_item_number }}</strong></p>

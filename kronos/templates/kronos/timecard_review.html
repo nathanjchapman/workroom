@@ -3,12 +3,12 @@
 {% block content %}
     <section>
         <h1>Review Timecard</h1>
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <h2>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</h2>
         {% if timecard.submission_notes %}
             <p>{{ timecard.employee.first_name }} said...</p>
             <blockquote>{{ timecard.submission_notes }}</blockquote>
         {% endif %}
-        <h3>{{ timecard.pay_period_start }} through {{ timecard.pay_period_end }}</h3>
+        <h3>{{ timecard.pay_period.start }} through {{ timecard.pay_period.end }}</h3>
 
         {% if tasks %}
             <table>
@@ -26,11 +26,11 @@
                 <tbody>
                 {% for task in tasks %}
                     <tr class="task">
-                        <td>{{ task.date }}</td>
+                        <td>{{ task.started|date:"M d" }}</td>
                         <td>{{ task.project }}</td>
                         <td><a href="{% url 'kronos:timecard_detail' task.id %}">{{ task.description }}</a></td>
-                        <td>{{ task.start_time }}</td>
-                        <td>{{ task.end_time }}</td>
+                        <td>{{ task.started|date:"g:i A" }}</td>
+                        <td>{{ task.finished|date:"g:i A" }}</td>
                         <td>{{ task.labor_item_number }}</td>
                         <td>{{ task.li_class }}</td>
                     </tr>

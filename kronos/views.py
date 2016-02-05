@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from hq import models as hq_models
 from atom.models import LaborGroup, LaborItem, LaborClass
 from django.db.models import Sum
+import datetime
 
 # /kronos/
 # Overview of kronos
@@ -42,7 +43,7 @@ def timecard_add(request):
 # /kronos/1/
 def timecard_detail(request, timecard_id):
     timecard = Timecard.objects.get(pk=timecard_id)
-    tasks = Task.objects.all().filter(timecard=timecard).order_by('date')
+    tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
 
     return render(request, 'kronos/timecard_detail.html', {
         'timecard': timecard,
@@ -65,7 +66,7 @@ def timecard_complete(request, timecard_id):
     else:
         try:
             timecard = Timecard.objects.get(pk=timecard_id)
-            tasks = Task.objects.all().filter(timecard=timecard).order_by('date')
+            tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
         return render(request, 'kronos/timecard_review.html', {
@@ -89,7 +90,7 @@ def timecard_review(request, timecard_id):
     else:
         try:
             timecard = Timecard.objects.get(pk=timecard_id)
-            tasks = Task.objects.all().filter(timecard=timecard).order_by('date')
+            tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
         return render(request, 'kronos/timecard_review.html', {
@@ -130,29 +131,29 @@ def task_add(request, timecard_id):
     if request.method == "POST":
         employee = request.POST["employee"]
         date = request.POST["date"]
-        pr = request.POST["project"]
+        project_id = request.POST["project"]
         description = request.POST["description"]
         start_time = request.POST["start_time"]
         end_time = request.POST["end_time"]
         labor_item_id = request.POST["labor_item_number"]
         li_class_id = request.POST["li_class"]
 
-        project = hq_models.Project.objects.get(id=pr)
+        started = "%s %s" % (date, start_time)
+        finished = "%s %s" % (date, end_time)
+
+        project = hq_models.Project.objects.get(id=project_id)
         user = User.objects.get(id=employee)
         timecard = Timecard.objects.get(id=timecard_id)
         labor_item = LaborItem.objects.get(id=labor_item_id)
         li_class = LaborClass(id=li_class_id)
 
-
-
         t = Task.objects.create(
             employee=user,
             timecard=timecard,
-            date = date,
             project = project,
             description = description,
-            start_time = start_time,
-            end_time = end_time,
+            started = started,
+            finished = finished,
             labor_item_number = labor_item,
             li_class = li_class
             )
