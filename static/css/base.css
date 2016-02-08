@@ -249,6 +249,7 @@ nav a {
             box-sizing: border-box; 
         }
 
+.detail,
 .timecard-detail {
     border: 1px solid #bdc3c7;
     background-color: #fff;
@@ -268,6 +269,7 @@ nav a {
     text-decoration: none;
     }
 
+.archived,
 .review-timecards {
     float: right;
     }

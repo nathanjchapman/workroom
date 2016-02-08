@@ -9,6 +9,11 @@
                 —{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}
             </blockquote>
         {% endif %}
+        {% if not timecard.complete %}
+            <p>
+                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new Task</a>
+            </p>
+        {% endif %}
         {% if tasks %}
             <table class="tasks">
                 <thead>
@@ -41,11 +46,6 @@
                 </tbody>
             </table>
             <p><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
-        {% endif %}
-        {% if not timecard.complete %}
-            <p>
-                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new Task</a>
-            </p>
         {% endif %}
     </section>
     {% if not timecard.complete %}

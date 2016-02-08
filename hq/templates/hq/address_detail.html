@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Address</h1>
-    <section>
+    <section class="detail">
+        <h1>Address</h1>
         <address>
             {{ address.street }}<br>
             {{ address.city }}<br>
             {{ address.state }}<br>
             {{ address.zip_code }}<br>
         </address>
-    </section>
-    <section>
         <p>
-            <a class="delete" href="{% url 'hq:address_delete' address.id %}">x delete this address</a>
+            <a class="delete" href="{% url 'hq:address_delete' address.id %}" onclick="if (!confirm('Are you sure you want to delete this?')) return false;">x delete this address</a>
         </p>
     </section>
 {% endblock %}

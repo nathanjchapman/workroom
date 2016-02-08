@@ -115,10 +115,10 @@ def timecard_complete_index(request):
 # return a list of all timecards
 def timecard_index(request):
     try:
-        pp = PayPeriod.objects.order_by('-start')
+        pay_period= PayPeriod.objects.order_by('-start')
     except PayPeriod.DoesNotExist:
         raise Http404("Timecards do not exist.")
-    return render(request, 'kronos/timecard_index.html', {'pay_periods': pp})
+    return render(request, 'kronos/timecard_index.html', {'pay_periods': pay_period})
 
 @login_required(login_url="/login/")
 def timecard_update(request, timecard_id):
@@ -183,12 +183,12 @@ def timecard_delete(request, timecard_id):
 @login_required(login_url="/login/")
 def task_detail(request, timecard_id, task_id):
     try:
-        tc = Timecard.objects.get(pk=timecard_id)
+        timecard = Timecard.objects.get(pk=timecard_id)
         task = Task.objects.get(pk=task_id)
     except Timecard.DoesNotExist:
-        raise Http404("Task does not exist.")
+        raise Http404("Task or Timecard do not exist.")
     return render(request, 'kronos/task_detail.html', {
-        'timecard': tc,
+        'timecard': timecard,
         'task': task
         })
 
@@ -199,4 +199,4 @@ def task_detail(request, timecard_id, task_id):
 def task_delete(request, timecard_id, task_id):
     t = Task.objects.get(pk=task_id)
     t.delete()
-    return HttpResponseRedirect('/kronos/') 
+    return HttpResponseRedirect('/kronos/%s' % (timecard_id)) 

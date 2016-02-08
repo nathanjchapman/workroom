@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Project</h1>
-    <section>
-        <h3>
+    <section class="timecard-detail">
+        {% if project.archived %}<span class="archived"><em>This project is archived</em></span>{% endif %}
+        <h1>
             {{ project.name }}
-            {% if project.archived %}- <em>This project is archived</em>{% endif %}
-        </h3>
-        <hr>
-        <p>{{ project.description }}</p>
+        </h1>
+        <h2>{{ project.description }}</h2>
         {% if project.address %}
             {% for address in project.address_set.all %}
                 <address>
@@ -19,11 +17,9 @@
                 </address>
             {% endfor %}
         {% endif %}
-    </section>
-    <section>
         <p>
-            <a href="{% url 'hq:project_archive' project.id %}">Archive this project</a> or 
-            <a class="delete" href="{% url 'hq:project_delete' project.id %}">x delete this project</a>
+            <a href="{% url 'hq:project_archive' project.id %}" onclick="if (!confirm('Are you sure you want to archive this?')) return false;">Archive this project</a> or 
+            <a class="delete" href="{% url 'hq:project_delete' project.id %}" onclick="if (!confirm('Are you sure you want to delete this?')) return false;">x delete this project</a>
         </p>
     </section>
 {% endblock %}

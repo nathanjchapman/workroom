@@ -6,6 +6,9 @@
     {% endif %}
     <h1>Timecards</h1>
     <section>
+        <p>
+            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
+        </p>
         {% if timecards %}
             {% for timecard in timecards %}
                 <p class="timecard_card">
@@ -28,9 +31,6 @@
         {% else %}
             <p><em>You have no current timecard</em></p>
         {% endif %}
-        <p>
-            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
-        </p>
     </section>
     <section>
         <p>
