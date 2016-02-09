@@ -36,7 +36,7 @@ class Timecard(models.Model):
         return False
 
     def __str__(self):
-        return "Pay-period %s through %s." % (self.pay_period.start,
+        return "%s, %s through %s." % (self.employee.first_name, self.pay_period.start,
             self.pay_period.end)
 
     class Meta:
@@ -61,4 +61,4 @@ class Task(models.Model):
         return round((self.finished - self.started).seconds / 3600, 2)
 
     def __str__(self):
-        return self.description
+        return "%s, %s (%s)" % (self.employee.first_name, self.description, self.started)
