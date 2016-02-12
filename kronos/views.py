@@ -164,9 +164,9 @@ def task_add(request, timecard_id):
     else:
         li_classes = LaborClass.objects.all()
         labor_groups = LaborGroup.objects.all()
-        p = hq_models.Project.objects.all().filter(archived=False)
+        projects = hq_models.Project.objects.all().filter(archived=False)
         return render(request, 'kronos/task_add.html', {
-            'projects': p,
+            'projects': projects,
             'timecard_id': timecard_id,
             'labor_groups': labor_groups,
             'li_classes': li_classes
@@ -192,6 +192,64 @@ def task_detail(request, timecard_id, task_id):
         'task': task
         })
 
+@login_required(login_url="/login/")
+def task_update(request, timecard_id, task_id):
+    if request.method == "POST":
+
+        date = request.POST["date"]
+        project_id = request.POST["project"]
+        description = request.POST["description"]
+        start_time = request.POST["start_time"]
+        end_time = request.POST["end_time"]
+        labor_item_id = request.POST["labor_item_number"]
+        li_class_id = request.POST["li_class"]
+
+        started = "%s %s" % (date, start_time)
+        finished = "%s %s" % (date, end_time)
+
+        project = hq_models.Project.objects.get(pk=project_id)
+        labor_item = LaborItem.objects.get(pk=labor_item_id)
+        li_class = LaborClass(pk=li_class_id)
+
+        task = Task.objects.get(pk=task_id)
+        
+        task.project = project
+        task.description = description
+        task.started = started
+        task.finished = finished
+        task.labor_item_number = labor_item
+        task.li_class = li_class
+        
+        task.save()
+
+        return HttpResponseRedirect('/kronos/%s/task/%s' % (timecard_id, task_id))
+    else:
+        timecard = Timecard.objects.get(pk=timecard_id)
+        task = Task.objects.get(pk=task_id)
+        li_classes = LaborClass.objects.all()
+        labor_groups = LaborGroup.objects.all()
+        projects = hq_models.Project.objects.all().filter(archived=False)
+        return render(request, 'kronos/task_update.html', {
+            'timecard': timecard,
+            'task': task,
+            'projects': projects,
+            'labor_groups': labor_groups,
+            'li_classes': li_classes
+            })
+
+@login_required(login_url="/login/")
+# /kronos/1/task/1/delete/
+# delete the task with id
+def task_copy(request, timecard_id, task_id):
+    t = Task.objects.get(pk=task_id)
+    t.pk = None
+
+    today = datetime.datetime.now()
+    
+    t.started = t.started.replace(year=today.year, month=today.month, day=today.day)
+    t.finished = t.finished.replace(year=today.year, month=today.month, day=today.day)
+    t.save()
+    return HttpResponseRedirect('/kronos/%s/' % (timecard_id))
 
 @login_required(login_url="/login/")
 # /kronos/1/task/1/delete/
@@ -199,4 +257,4 @@ def task_detail(request, timecard_id, task_id):
 def task_delete(request, timecard_id, task_id):
     t = Task.objects.get(pk=task_id)
     t.delete()
-    return HttpResponseRedirect('/kronos/%s' % (timecard_id)) 
+    return HttpResponseRedirect('/kronos/%s' % (timecard_id))

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datepickr.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="backlink">
+        <span>←</span>
+        <a onclick="goBack()" href="">Back to task</a>
+    </div>
+<form method="post" action="{% url 'kronos:task_update' timecard.id task.id %}">
+    {% csrf_token %}
+
+    <section class="detail">
+        <div class="menu">
+            <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}" onclick="if (!confirm('Are you sure you want to delete this?')) return false;">Delete this</a>
+        </div>
+
+        <p>
+            <label for="date">Date:</label>
+            <br>
+            <input name="date" class="datepickr" readonly="true" placeholder="2000-01-01" value="{{ task.started|date:'Y-m-d' }}" required>
+        </p>
+        <p>
+            <label for="project">Project:</label>
+            <br>
+            <select name="project" required>
+                {% if projects %}
+                    {% for project in projects %}
+                        {% if project.id == task.project.id %}
+                            <option value="{{ project.id }}" selected="selected">*{{ project.name }}</option>
+                        {% else %}
+                            <option value="{{ project.id }}">{{ project.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <br>
+            <small>
+                Don't see the project you're looking for?
+                <a href="{% url 'hq:project_add' %}">+ Add a new project</a>
+            </small>
+        </p>
+
+        <p>
+            <label for="start_time">Start:</label>
+            <input name="start_time" type="time" placeholder="8:00" value="{{ task.started|date:'H:i' }}" required>
+        </p>
+        <p>    
+            <label for="end_time">End:</label>
+            <input name="end_time" type="time" placeholder="12:00" value="{{ task.finished|date:'H:i' }}" required>
+        </p>
+
+        <p>
+            <label for="description">Task description:</label>
+            <br>
+            <textarea name="description" placeholder="What did you work on?"  required>{{ task.description }}</textarea>
+        </p>
+        <p>
+            <label for="labor_item_number">Labor item number:</label>
+            <br>
+            {% if labor_groups %}
+                <select name="labor_item_number" required>
+                {% for group in labor_groups %}
+                    <optgroup label="{{ group.name }}">
+                    {% for item in group.laboritem_set.all %}
+                        {% if item.id == task.labor_item_number.id %}
+                            <option value="{{ item.id }}" selected="selected">*{{ item.number }}: {{ item.description }}</option>
+                        {% else %}
+                            <option value="{{ item.id }}">{{ item.number }}: {{ item.description }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </optgroup>
+                {% endfor %}
+                </select>
+            {% endif %}
+        </p>
+        <p>
+            <label for="li_class">L&amp;I class:</label>
+            <br>
+            {% if li_classes %}
+                <select name="li_class" required>
+                {% for class in li_classes %}
+                    {% if class.id == task.li_class.id %}
+                        <option value="{{ class.id }}" selected="selected">*{{ class.number }}: {{ class.name }}</option>
+                    {% else %}
+                        <option value="{{ class.id }}">{{ class.number }}: {{ class.name }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            {% endif %}
+        </p>
+    </section>
+    <input type="submit" value="Save changes">
+</form>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/datepickr.js' %}"></script>
+    <script>
+        // Custom date format
+        datepickr('.datepickr', { dateFormat: 'Y-m-d' });
+    </script>
+{% endblock %}
