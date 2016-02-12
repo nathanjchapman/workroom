@@ -1,27 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>All timecards</h1>
 
-    <section>
-        {% if pay_periods %}
-        {% for pp in pay_periods %}
-            <h3>{{ pp.start|date:"M d" }} - {{ pp.end|date:"d, Y" }}</h3>
-            <ul>
+    {% if pay_periods %}
+        <section class="detail">
+            <h1>All timecards</h1>
+            {% for pp in pay_periods %}
+                <br>
+                <p><strong>{{ pp.start|date:"M d" }} - {{ pp.end|date:"d, Y" }}</strong></p>
                 {% for timecard in pp.timecard_set.all %}
-                <li>
-                    <a href="{% url 'kronos:timecard_review' timecard.id %}">{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</a>
+                <p>
+                    <a href="{% url 'kronos:timecard_review' timecard.id %}"><strong>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}</strong></a>
                     <small>
                         {% if not timecard.reviewed %}
                             <span class="not-reviewed">&#10007; not reviewed</span>
                         {% endif %}
+                    </small><br>
+                    <small>
+                        {% if timecard.task_set.count == 1 %}
+                            {{ timecard.task_set.count }} task,
+                        {% else %}
+                            {{ timecard.task_set.count }} tasks,
+                        {% endif %}
+                        {{ timecard.get_total_tasks_duration }} hrs
                     </small>
-                </li>
+                </p>
                 {% endfor %}
-            </ul>
-        {% endfor %}
-        {% else %}
-            <p><em>No timecards</em></p>
-        {% endif %}
-    </section>
+            {% endfor %}
+        </section>
+    {% else %}
+        <p><em>No timecards</em></p>
+    {% endif %}
 {% endblock %}

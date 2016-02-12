@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Add a new Project</h1>
+    <div class="backlink">
+        <span>←</span>
+        <a onclick="goBack()" href="">Back to projects</a>
+    </div>
 
     <section>
         <form method="post" action="{% url 'hq:project_add' %}">
-            {% csrf_token %}
-            <p>
-                {{ form }}
-            </p>
-            <p>
-                <small>Don't see the address you want? <a href="{% url 'hq:address_add' %}">+ Add a new address</a></small>
-            </p>
-            <p>
-                <input type="submit" value="Add this Project">
-            </p>
+            <section class="detail">
+                {% csrf_token %}
+                <p>
+                    {{ form }}
+                </p>
+                <p>
+                    <small>Don't see the address you want? <a href="{% url 'hq:address_add' %}">+ Add a new address</a></small>
+                </p>
+            </section>
+            <input type="submit" value="Make this Project">
         </form>
     </section>
 {% endblock %}

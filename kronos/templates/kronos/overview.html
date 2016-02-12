@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if perms.kronos.can_review_timecards %}
-    <a class="review-timecards" href="{% url 'kronos:timecard_index' %}">Review Timecards</a>
-    {% endif %}
-    <h1>Timecards</h1>
-    <section>
-        <p>
-            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
-        </p>
+    <section class="detail">
+        {% if perms.kronos.can_review_timecards %}
+        <div class="menu">
+            <a class="" href="{% url 'kronos:timecard_index' %}">Review Timecards</a>
+        </div>
+        {% endif %}
+        <h1>Timecards</h1>
+        <a class="action-button" href="{% url 'kronos:timecard_add' %}">Make a new Timecard</a>
         {% if timecards %}
             {% for timecard in timecards %}
-                <p class="timecard_card">
-                    <a class="card" href="{% url 'kronos:timecard_detail' timecard.id %}">
-                        <strong>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</strong><br>
-                        <small>
-                            {% if timecard.task_set.count == 1 %}
-                                {{ timecard.task_set.count }} task<br>
-                            {% else %}
-                                {{ timecard.task_set.count }} tasks<br>
-                            {% endif %}
-                            {{ timecard.get_total_tasks_duration }} hrs<br>
-                            {% if timecard.is_past_due %}
-                                <span class="past-due">Past due!</span><br>
-                            {% endif %}
-                        </small>
-                    </a>
+                <p>
+                    <a href="{% url 'kronos:timecard_detail' timecard.id %}"><strong>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</strong></a><br>
+                    <small>
+                        {% if timecard.is_past_due %}
+                            <span class="past-due">Past due!</span>
+                        {% endif %}
+                        {% if timecard.task_set.count == 1 %}
+                            {{ timecard.task_set.count }} task,
+                        {% else %}
+                            {{ timecard.task_set.count }} tasks,
+                        {% endif %}
+                        {{ timecard.get_total_tasks_duration }} hrs
+                    </small>
                 </p>
             {% endfor %}
         {% else %}

@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Review Timecard</h1>
+    <div class="backlink">
+        <span>←</span>
+        <a onclick="goBack()" href="">Back to timecards</a>
+    </div>
+
     <section class="timecard-detail">
         <h1>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}'s Timecard</h1>
         <h2>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</h2>
@@ -44,12 +48,12 @@
             <p><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
         {% endif %}
     </section>
+    {% if not timecard.reviewed %}
     <section>
         <form method="post" action="{% url 'kronos:timecard_review' timecard.id %}">
             {% csrf_token %}
-            <p>
-                <input type="submit" value="Everything looks good, mark as reviewed">
-            </p>
+            <input type="submit" value="Everything looks good, mark as reviewed" onclick="if (!confirm('Are you sure you want to mark this as reviewed?')) return false;">
         </form>
     </section>
+    {% endif %}
 {% endblock %}

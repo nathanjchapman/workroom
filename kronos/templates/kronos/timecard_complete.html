@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Your completed timecards</h1>
-    <section>
+    <section class="detail">
+        <h1>Your completed timecards</h1>
         {% if timecards %}
             {% for timecard in timecards %}
-                <h3>
-                    <a href="{% url 'kronos:timecard_detail' timecard.id %}">{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</a>
-                </h3>
+                <p>
+                    <a href="{% url 'kronos:timecard_detail' timecard.id %}"><strong>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</strong></a>
+                    <br>
+                    <small>
+                        {% if timecard.task_set.count == 1 %}
+                            {{ timecard.task_set.count }} task,
+                        {% else %}
+                            {{ timecard.task_set.count }} tasks,
+                        {% endif %}
+                        {{ timecard.get_total_tasks_duration }} hrs
+                    </small>
+                </p>
             {% endfor %}
         {% else %}
             <p><em>You have no completed timecards</em></p>

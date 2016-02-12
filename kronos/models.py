@@ -2,7 +2,6 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborClass
-from datetime import date
 
 class PayPeriod(models.Model):
     start = models.DateField()
@@ -31,7 +30,7 @@ class Timecard(models.Model):
 
     @property
     def is_past_due(self):
-        if date.today() > self.pay_period.end:
+        if datetime.date.today() > self.pay_period.end:
             return True
         return False
 
@@ -58,7 +57,10 @@ class Task(models.Model):
 
     def get_task_duration(self):
         """Return the task duration in hours as a float"""
-        return round((self.finished - self.started).seconds / 3600, 2)
+        duration = round((self.finished - self.started).seconds / 3600, 2)
+        if duration > 8:
+            return duration - 0.5
+        return duration
 
     def __str__(self):
         return "%s, %s (%s)" % (self.employee.first_name, self.description, self.started)

@@ -6,18 +6,19 @@
 {% endblock %}
 
 {% block content %}
+    <div class="backlink">
+        <span>←</span>
+        <a onclick="goBack()" href="">Back to timecard</a>
+    </div>
 <form method="post" action="{% url 'kronos:task_add' timecard_id %}">
     {% csrf_token %}
     <input type="hidden" name="employee" value="{{ user.id }}">
 
-    <h1>Add task</h1>
-    <section>
-        <h2>General info</h2>
-        <hr>
+    <section class="detail">
         <p>
             <label for="date">Date:</label>
             <br>
-            <input name="date" class="datepickr" readonly="true" placeholder="Jan 1, 2000" required>
+            <input name="date" class="datepickr" readonly="true" placeholder="2000-01-01" required>
         </p>
         <p>
             <label for="project">Project:</label>
@@ -30,8 +31,7 @@
                     {% endfor %}
                 {% endif %}
             </select>
-        </p>
-        <p>
+            <br>
             <small>
                 Don't see the project you're looking for?
                 <a href="{% url 'hq:project_add' %}">+ Add a new project</a>
@@ -39,26 +39,19 @@
         </p>
 
         <p>
-            <label for="description">Task description:</label>
-            <br>
-            <textarea name="description" placeholder="What did you work on?" requ  required></textarea>
-        </p>
-    </section>
-    <section>
-        <h2>Time</em></h2>
-        <hr>
-        <p>
-            <label for="start_time">When did you start?</label><br>
-            <input name="start_time" type="time" placeholder="8:00" requ   required>
+            <label for="start_time">Start:</label>
+            <input name="start_time" type="time" placeholder="8:00" required>
         </p>
         <p>    
-            <label for="end_time">When did you finish?</label><br>
+            <label for="end_time">End:</label>
             <input name="end_time" type="time" placeholder="12:00" required>
         </p>
-    </section>
-    <section>
-        <h2>Labor classifications</h2>
-        <hr>
+
+        <p>
+            <label for="description">Task description:</label>
+            <br>
+            <textarea name="description" placeholder="What did you work on?"  required></textarea>
+        </p>
         <p>
             <label for="labor_item_number">Labor item number:</label>
             <br>
@@ -92,11 +85,7 @@
             {% endif %}
         </p>
     </section>
-    <section>
-        <p>
-            <input type="submit" value="Add this task">
-        </p>
-    </section>
+    <input type="submit" value="Add this task">
 </form>
 {% endblock %}
 

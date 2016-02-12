@@ -1,19 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="backlink">
+        <span>←</span>
+        <a onclick="goBack()" href="">Back to timecard</a>
+    </div>
     <section class="timecard-detail">
+        <div class="menu">
+            <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}" onclick="if (!confirm('Are you sure you want to delete this?')) return false;">Delete this</a>
+            <a href="">Edit this…</a>
+            <a href="">Duplicate this…</a>
+        </div>
+
         <h1>Task Details</h1>
-        <p>
-            Date <strong>{{ task.started|date:"M d" }}</strong><br>
-            Project <strong>{{ task.project.name }}</strong><br>
-            Started <strong>{{ task.started|date:"g:i A" }}</strong><br>
-            Finished <strong>{{ task.finished|date:"g:i A" }}</strong><br>
-            Total time <strong>{{ task.get_task_duration }} hrs</strong>.
-        </p>
-        <h4></h4>
-        <p><strong>Worked on</strong>: {{ task.description }}</p>
-        <p>LI number <strong>{{ task.labor_item_number }}</strong></p>
-        <p>L&I class <strong>{{ task.li_class }}</strong></p>
-        <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}" onclick="if (!confirm('Are you sure you want to delete this?')) return false;">x delete this task</a>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Date:</th>
+                    <td>{{ task.started|date:"M d" }}</td>
+                </tr>
+                <tr>
+                    <th>Project:</th>
+                    <td>{{ task.project.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>{{ task.description }}</td>
+                </tr>
+                <tr>
+                    <th>LI number:</th>
+                    <td>{{ task.labor_item_number.number }} <em>{{ task.labor_item_number.description }}</em></td>
+                </tr>
+                <tr>
+                    <th>L&I class</th>
+                    <td>{{ task.li_class.number }} <em>{{ task.li_class.name }}</em></td>
+                </tr>
+                <tr>
+                    <th>Start:</th>
+                    <td>{{ task.started|date:"g:i A" }}</td>
+                </tr>
+                <tr>
+                    <th>End:</th>
+                    <td>{{ task.finished|date:"g:i A" }}</td>
+                </tr>
+                <tr>
+                    <th>Total time:</th>
+                    <td>{{ task.get_task_duration }} hrs.</td>
+                </tr>
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
     </section>
 {% endblock %}
