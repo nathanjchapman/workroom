@@ -6,9 +6,12 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Add a new Timecard</h1>
+    <div class="backlink">
+        <span>←</span>
+        <a href="{% url 'kronos:overview' %}">Back to overview</a>
+    </div>
 
-    <section>
+    <section class="detail">
         <form method="post" action="{% url 'kronos:timecard_add' %}">
             {% csrf_token %}
             <input type="hidden" name="employee" value="{{ user.id }}">

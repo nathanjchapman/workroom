@@ -8,7 +8,7 @@
         </div>
         {% endif %}
         <h1>Timecards</h1>
-        <a class="action-button" href="{% url 'kronos:timecard_add' %}">Make a new Timecard</a>
+        <a class="action-button" href="{% url 'kronos:timecard_add' %}">Start a new Timecard</a>
         {% if timecards %}
             {% for timecard in timecards %}
                 <p>

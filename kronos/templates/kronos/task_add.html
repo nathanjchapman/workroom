@@ -8,7 +8,7 @@
 {% block content %}
     <div class="backlink">
         <span>←</span>
-        <a onclick="goBack()" href="">Back to timecard</a>
+        <a href="{% url 'kronos:timecard_detail' timecard_id %}">Back to timecard</a>
     </div>
 <form method="post" action="{% url 'kronos:task_add' timecard_id %}">
     {% csrf_token %}

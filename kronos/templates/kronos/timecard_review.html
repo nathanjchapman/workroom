@@ -3,7 +3,7 @@
 {% block content %}
     <div class="backlink">
         <span>←</span>
-        <a onclick="goBack()" href="">Back to timecards</a>
+        <a href="{% url 'kronos:timecard_index' %}">Back to timecards</a>
     </div>
 
     <section class="timecard-detail">

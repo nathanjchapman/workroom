@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if timecard.complete %}
-        <div class="backlink">
-            <span>←</span>
-            <a onclick="goBack()" href="">Back to timecards</a>
-        </div>
-    {% endif %}
+    
+    <div class="backlink">
+        <span>←</span>
+        <a href="{% url 'kronos:overview' %}">Back to timecards</a>
+    </div>
 
     <section class="timecard-detail">
         {% if timecard.is_past_due and not timecard.complete %}
