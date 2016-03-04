@@ -330,6 +330,7 @@ nav a {
 
 /* Print settings */
 @media print {
+    .backlink,
     input,
     .action-button,
     header,
@@ -337,12 +338,17 @@ nav a {
         display: none;
     }
     html {
-        font-size: 12pt;
+        font-size: 11pt;
     }
     body {
         width: 100%;
         color: black;
     }
+    .detail,
+    .timecard-detail {
+        border: 0;
+        box-shadow: 0;
+        }
 
     a {
         text-decoration: none;
