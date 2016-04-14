@@ -190,20 +190,20 @@ table {
     border-spacing: 0;
     width: 100%;
     margin-bottom: 1.3em;
+    border: 1px solid #bdc3c7;
     }
 
 table a {
     white-space: normal;
     }
-tr td {
-    border: 1px solid #dddddd;
-    }
+
 td,
 th {
     text-align: left;
     font-size: 0.85em;
     padding: 2px 10px;
-    border: 1px solid #bdc3c7;
+    border-bottom: 1px solid;
+    border-color: #bdc3c7;
     }
 
 /* Major Elements */
@@ -305,6 +305,10 @@ nav a {
 .error,
 .delete {
     color: #c0392b;
+    }
+
+.total-hours {
+    text-align: right;
     }
 
 /* **************** LAYOUT ***************** */

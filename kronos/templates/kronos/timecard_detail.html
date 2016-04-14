@@ -54,7 +54,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <p><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
+            <p class="total-hours"><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
         {% endif %}
     </section>
     {% if not timecard.complete %}
