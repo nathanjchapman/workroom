@@ -8,10 +8,12 @@ from atom.models import LaborGroup, LaborItem, LaborClass
 from django.db.models import Sum
 import datetime
 
-# /kronos/
-# Overview of kronos
+
 @login_required(login_url="/login/")
 def overview(request):
+    """/kronos/
+    Return overview render.
+    """
     timecards = Timecard.objects.all().filter(employee=request.user, complete=False)
     return render(request, 'kronos/overview.html', {
         'timecards': timecards
@@ -19,9 +21,10 @@ def overview(request):
 
 
 @login_required(login_url="/login/")
-# /kronos/timecard/add/
 def timecard_add(request):
-    # if POST process data and create timecard
+    """/kronos/timecard/add/
+    If POST, process data and create timecard.
+    """
     if request.method == "POST":
         p = request.POST["pay_period"]
         pay_period = PayPeriod.objects.get(pk=p)
@@ -40,8 +43,10 @@ def timecard_add(request):
 
 
 @login_required(login_url="/login/")
-# /kronos/1/
 def timecard_detail(request, timecard_id):
+    """/kronos/1/
+    Return timecard detail render.
+    """
     timecard = Timecard.objects.get(pk=timecard_id)
     tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
 
@@ -52,10 +57,11 @@ def timecard_detail(request, timecard_id):
 
 
 @login_required(login_url="/login/")
-# /kronos/1/complete/
-# have to be a manager
 def timecard_complete(request, timecard_id):
-    # if POST process data
+    """/kronos/1/complete/
+    Have to be a manager.
+    If POST process data.
+    """
     if request.method == "POST":
         timecard = Timecard.objects.get(pk=timecard_id)
         timecard.submission_notes = request.POST["submission_notes"]
@@ -77,10 +83,11 @@ def timecard_complete(request, timecard_id):
 
 @permission_required('kronos.can_review_timecards')
 @login_required(login_url="/login/")
-# /kronos/1/review/
-# have to be a manager
 def timecard_review(request, timecard_id):
-    # if POST process data
+    """/kronos/1/review/
+    Have to be a manager.
+    If POST, timecard_id, mark timecard as reviewed.
+    """
     if request.method == "POST":
         timecard = Timecard.objects.get(pk=timecard_id)
         timecard.reviewed = True
@@ -100,9 +107,10 @@ def timecard_review(request, timecard_id):
 
 
 @login_required(login_url="/login/")
-# /kronos/complete/
-# return a list of completed timecards
 def timecard_complete_index(request):
+    """/kronos/complete/
+    Return a list of completed timecards.
+    """
     try:
         timecard = Timecard.objects.order_by('-pay_period').filter(complete=True, employee=request.user)
     except Timecard.DoesNotExist:
@@ -111,9 +119,10 @@ def timecard_complete_index(request):
 
 @permission_required('kronos.can_review_timecards')
 @login_required(login_url="/login/")
-# /kronos/timecards/
-# return a list of all timecards
 def timecard_index(request):
+    """/kronos/timecards/
+    Return a list of all timecards.
+    """
     try:
         pay_period= PayPeriod.objects.order_by('-start')
     except PayPeriod.DoesNotExist:
@@ -125,9 +134,10 @@ def timecard_update(request, timecard_id):
     pass
 
 @login_required(login_url="/login/")
-# /kronos/task/add/
 def task_add(request, timecard_id):
-    # if POST process data and create timecard
+    """/kronos/task/add/
+    If POST process data and add task to timecard.
+    """
     if request.method == "POST":
         employee = request.POST["employee"]
         date = request.POST["date"]
@@ -173,9 +183,10 @@ def task_add(request, timecard_id):
             })
 
 @login_required(login_url="/login/")
-# /kronos/1/delete/
-# deletes the timecard with id
 def timecard_delete(request, timecard_id):
+    """/kronos/1/delete/
+    Deletes the timecard with id.
+    """
     t = Timecard.objects.get(pk=timecard_id)
     t.delete()
     return HttpResponseRedirect('/kronos/')    
@@ -194,6 +205,9 @@ def task_detail(request, timecard_id, task_id):
 
 @login_required(login_url="/login/")
 def task_update(request, timecard_id, task_id):
+    """/kronos/1/task/1/update/
+    Updates task with id.
+    """
     if request.method == "POST":
 
         date = request.POST["date"]
@@ -238,9 +252,10 @@ def task_update(request, timecard_id, task_id):
             })
 
 @login_required(login_url="/login/")
-# /kronos/1/task/1/delete/
-# delete the task with id
 def task_copy(request, timecard_id, task_id):
+    """/kronos/1/task/1/delete/
+    Copy task with id, replace times with today
+    """
     t = Task.objects.get(pk=task_id)
     t.pk = None
 
@@ -252,9 +267,10 @@ def task_copy(request, timecard_id, task_id):
     return HttpResponseRedirect('/kronos/%s/' % (timecard_id))
 
 @login_required(login_url="/login/")
-# /kronos/1/task/1/delete/
-# delete the task with id
 def task_delete(request, timecard_id, task_id):
+    """/kronos/1/task/1/delete/
+    Delete the task with id.
+    """
     t = Task.objects.get(pk=task_id)
     t.delete()
     return HttpResponseRedirect('/kronos/%s' % (timecard_id))
