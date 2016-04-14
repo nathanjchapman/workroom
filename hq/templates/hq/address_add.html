@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Add a new Address</h1>
+    <div class="backlink">
+        <span>←</span>
+        <a href="{% url 'hq:overview' %}">Back to addresses</a>
+    </div>
 
     <section>
         <form method="post" action="{% url 'hq:address_add' %}">
             {% csrf_token %}
+            <section class="detail">
             {{ form }}
-            <p>
-                <input type="submit" value="Add this Address">
-            </p>
+            </section>
+            <input type="submit" value="Add this Address">
         </form>
     </section>
 {% endblock %}

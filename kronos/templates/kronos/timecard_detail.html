@@ -1,9 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    
+    <div class="backlink">
+        <span>←</span>
+        <a href="{% url 'kronos:overview' %}">Back to timecards</a>
+    </div>
+
     <section class="timecard-detail">
+        {% if timecard.is_past_due and not timecard.complete %}
+                <span class="past-due">Past due!</span>
+        {% endif %}
         <h1>{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}'s Timecard</h1>
-        <h2>{{ timecard.pay_period_start|date:"M d" }} - {{ timecard.pay_period_end|date:"d, Y" }}</h2>
+        <h2>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</h2>
+        {% if not timecard.complete %}
+        <section>
+            <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">Add another Task</a>
+        </section>
+        {% endif %}
+        {% if timecard.submission_notes %}
+            <blockquote cite="{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}">{{ timecard.submission_notes }}<br>
+                —{{ timecard.employee.first_name }} {{ timecard.employee.last_name }}
+            </blockquote>
+        {% endif %}
         {% if tasks %}
             <table class="tasks">
                 <thead>
@@ -21,21 +40,25 @@
                 <tbody>
                 {% for task in tasks %}
                     <tr class="task">
-                        <td>{{ task.date|date:"M d" }}</td>
+                        <td>{{ task.started|date:"M d" }}</td>
                         <td>{{ task.project }}</td>
                         <td>{{ task.labor_item_number.number }}</td>
                         <td>
                             <a href="{% url 'kronos:task_detail' timecard.id task.id %}">{{ task.description }}</a>
                         </td>
-                        <td>{{ task.start_time|date:"g:i A" }}</td>
-                        <td>{{ task.end_time|date:"g:i A" }}</td>
+                        <td>{{ task.started|date:"g:i A" }}</td>
+                        <td>{{ task.finished|date:"g:i A" }}</td>
                         <td>{{ task.li_class.number }}</td>
+<<<<<<< HEAD
                         <td>{{ get_task_duration }}</td>
+=======
+                        <td>{{ task.get_task_duration }} hrs.</td>
+>>>>>>> develop
                     </tr>
-                    <p>{{ task.total_hours }}</p>
                 {% endfor %}
                 </tbody>
             </table>
+<<<<<<< HEAD
 
             <p>
                 {{ timecard.get_total_tasks_duration }}
@@ -45,6 +68,9 @@
             <p>
                 <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new Task</a>
             </p>
+=======
+            <p class="total-hours"><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
+>>>>>>> develop
         {% endif %}
     </section>
     {% if not timecard.complete %}
@@ -57,9 +83,7 @@
                 <br>
                 <textarea name="submission_notes" placeholder="Anything you'd like to tell the manager about your timecard?">{{ timecard.submission_notes }}</textarea>
             </p>
-            <p>
-                <input type="submit" value="Submit for review">
-            </p>
+            <input type="submit" value="Submit for review" onclick="if (!confirm('Are you sure you want to submit this?')) return false;">
         </form>
     </section>
     {% endif %}

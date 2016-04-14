@@ -13,7 +13,7 @@ class LaborItem(models.Model):
     description = models.CharField(max_length=72)
 
     def __str__(self):
-        return "%d - %s" % (self.number, self.description)    
+        return "%d %s" % (self.number, self.description)    
 
 class LaborClass(models.Model):
     number = models.CharField(max_length=8)
@@ -23,7 +23,7 @@ class LaborClass(models.Model):
     employee_rate = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return "%s - %s" % (self.number, self.name)
+        return "%s %s" % (self.number, self.name)
 
     class Meta:
         verbose_name_plural = "labor classes"

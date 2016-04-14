@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section>
+<section class="detail">
     <h1>Labor and Industry Classifications</h1>
     <!-- <p><a class="action-button" href="{% url 'atom:labor_class_add' %}">+ Add a new Class</a></p> -->
     {% if labor_classes %}
@@ -29,14 +29,14 @@
         <p>There are no Classes yet.</p>
     {% endif %}
 </section>
-<section>
+<section class="detail">
     <h1>Labor Item Numbers</h1>
     <!-- <p><a class="action-button" href="{% url 'atom:labor_item_add' %}">+ Add a new Labor Item</a></p> -->
     {% if labor_groups %}
         {% for group in labor_groups %}
             <table class="labor-item">
                 <thead>
-                    <h4>{{ group }}</h4>
+                    <h3>{{ group }}</h3>
                 </thead>
                 <tbody>
                     <tr>

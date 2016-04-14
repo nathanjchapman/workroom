@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<<<<<<< HEAD
     <h1>Timecard</h1>
     <section>
         <h4>Task Details</h4>
@@ -18,5 +19,57 @@
     </section>
     <section>
         <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}">x delete this task</a>
+=======
+    <div class="backlink">
+        <span>←</span>
+        <a href="{% url 'kronos:timecard_detail' timecard.id %}">Back to timecard</a>
+    </div>
+    <section class="timecard-detail">
+        <div class="menu">
+            <a href="{% url 'kronos:task_update' timecard.id task.id %}">Edit/delete this…</a>
+            <a href="{% url 'kronos:task_copy' timecard.id task.id %}">Duplicate this…</a>
+        </div>
+
+        <h1>Task Details</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Date:</th>
+                    <td>{{ task.started|date:"M d" }}</td>
+                </tr>
+                <tr>
+                    <th>Project:</th>
+                    <td>{{ task.project.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>{{ task.description }}</td>
+                </tr>
+                <tr>
+                    <th>LI number:</th>
+                    <td>{{ task.labor_item_number.number }} <em>{{ task.labor_item_number.description }}</em></td>
+                </tr>
+                <tr>
+                    <th>L&I class:</th>
+                    <td>{{ task.li_class.number }} <em>{{ task.li_class.name }}</em></td>
+                </tr>
+                <tr>
+                    <th>Start:</th>
+                    <td>{{ task.started|date:"g:i A" }}</td>
+                </tr>
+                <tr>
+                    <th>End:</th>
+                    <td>{{ task.finished|date:"g:i A" }}</td>
+                </tr>
+                <tr>
+                    <th>Total time:</th>
+                    <td>{{ task.get_task_duration }} hrs.</td>
+                </tr>
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
+>>>>>>> develop
     </section>
 {% endblock %}

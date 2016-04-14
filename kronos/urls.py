@@ -15,6 +15,8 @@ urlpatterns = [
         url(r'^task/add/$', views.task_add, name="task_add"),
         url(r'^task/(?P<task_id>[0-9]+)/', include([
             url(r'^$', views.task_detail, name="task_detail"),
+            url(r'^update/$', views.task_update, name="task_update"),
+            url(r'^copy/$', views.task_copy, name="task_copy"),
             url(r'^delete/$', views.task_delete, name="task_delete"),
         ])),
     ])),

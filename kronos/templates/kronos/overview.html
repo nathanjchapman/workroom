@@ -1,32 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Timecards</h1>
-    <section>
+    <section class="detail">
+        {% if perms.kronos.can_review_timecards %}
+        <div class="menu">
+            <a class="" href="{% url 'kronos:timecard_index' %}">Review Timecards</a>
+        </div>
+        {% endif %}
+        <h1>Timecards</h1>
+        <a class="action-button" href="{% url 'kronos:timecard_add' %}">Start a new Timecard</a>
         {% if timecards %}
-            {% for tc in timecards %}
-                <p class="timecard_card">
-                    <a class="card" href="{% url 'kronos:timecard_detail' tc.id %}">
-                        <strong>{{ tc.pay_period_start|date:"M d" }} - {{ tc.pay_period_end|date:"d, Y" }}</strong><br>
-                        <small>
-                            {% if tc.task_set.count == 1 %}
-                                {{ tc.task_set.count }} task<br>
-                            {% else %}
-                                {{ tc.task_set.count }} tasks<br>
-                            {% endif %}
-                            {% if tc.is_past_due %}
-                                <span class="past-due">Past due</span>
-                            {% endif %}
-                        </small>
-                    </a>
+            {% for timecard in timecards %}
+                <p>
+                    <a href="{% url 'kronos:timecard_detail' timecard.id %}"><strong>{{ timecard.pay_period.start|date:"M d" }} - {{ timecard.pay_period.end|date:"d, Y" }}</strong></a><br>
+                    <small>
+                        {% if timecard.is_past_due %}
+                            <span class="past-due">Past due!</span>
+                        {% endif %}
+                        {% if timecard.task_set.count == 1 %}
+                            {{ timecard.task_set.count }} task,
+                        {% else %}
+                            {{ timecard.task_set.count }} tasks,
+                        {% endif %}
+                        {{ timecard.get_total_tasks_duration }} hrs
+                    </small>
                 </p>
             {% endfor %}
         {% else %}
             <p><em>You have no current timecard</em></p>
         {% endif %}
-        <p>
-            <a class="action-button" href="{% url 'kronos:timecard_add' %}">+ Add a new Timecard</a>
-        </p>
     </section>
     <section>
         <p>

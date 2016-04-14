@@ -1,23 +1,28 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Timecard, Task
+from .models import PayPeriod, Timecard, Task
 from django.contrib.auth.models import User
 from hq import models as hq_models
 from atom.models import LaborGroup, LaborItem, LaborClass
 from django.db.models import Sum
+import datetime
+
 
 @login_required(login_url="/login/")
 def overview(request):
     """/kronos/
     Return overview render.
     """
+<<<<<<< HEAD
     tcss = Timecard.objects.all().filter(employee=request.user)
     tcs = tcss.filter(complete=False)
     ctcs = tcss.order_by('-pay_period_start').filter(complete=True)[:3]
+=======
+    timecards = Timecard.objects.all().filter(employee=request.user, complete=False)
+>>>>>>> develop
     return render(request, 'kronos/overview.html', {
-        'timecards': tcs,
-        'complete_timecards': ctcs
+        'timecards': timecards
         })
 
 @login_required(login_url="/login/")
@@ -26,31 +31,43 @@ def timecard_add(request):
     If POST, process data and create timecard.
     """
     if request.method == "POST":
+<<<<<<< HEAD
         pay_period_start = request.POST["pay_period_start"]
         pay_period_end = request.POST["pay_period_end"]
 
         tc = Timecard.objects.create(
-            employee=request.user,
-            pay_period_start=pay_period_start,
-            pay_period_end=pay_period_end
-            )
-        tc.save()
+=======
+        p = request.POST["pay_period"]
+        pay_period = PayPeriod.objects.get(pk=p)
 
-        return HttpResponseRedirect('/kronos/%s' % (tc.id))
+        timecard = Timecard.objects.create(
+>>>>>>> develop
+            employee=request.user,
+            pay_period=pay_period
+            )
+        timecard.save()
+
+        return HttpResponseRedirect('/kronos/%s' % (timecard.id))
 
     else:
-        return render(request, 'kronos/timecard_add.html')
+        pay_periods = PayPeriod.objects.order_by('-start')[:3]
+        return render(request, 'kronos/timecard_add.html', {'pay_periods': pay_periods})
 
 @login_required(login_url="/login/")
 def timecard_detail(request, timecard_id):
     """/kronos/1/
     Return timecard detail render.
     """
+<<<<<<< HEAD
     tc = Timecard.objects.get(pk=timecard_id)
     tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+=======
+    timecard = Timecard.objects.get(pk=timecard_id)
+    tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
+>>>>>>> develop
 
     return render(request, 'kronos/timecard_detail.html', {
-        'timecard': tc,
+        'timecard': timecard,
         'tasks': tasks
         })
 
@@ -61,20 +78,20 @@ def timecard_complete(request, timecard_id):
     If POST process data.
     """
     if request.method == "POST":
-        tc = Timecard.objects.get(pk=timecard_id)
-        tc.submission_notes = request.POST["submission_notes"]
-        tc.complete = True
-        tc.save()
+        timecard = Timecard.objects.get(pk=timecard_id)
+        timecard.submission_notes = request.POST["submission_notes"]
+        timecard.complete = True
+        timecard.save()
 
         return HttpResponseRedirect('/kronos/')
     else:
         try:
-            tc = Timecard.objects.get(pk=timecard_id)
-            tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+            timecard = Timecard.objects.get(pk=timecard_id)
+            tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
         return render(request, 'kronos/timecard_review.html', {
-            'timecard': tc,
+            'timecard': timecard,
             'tasks': tasks
             })
 
@@ -86,19 +103,19 @@ def timecard_review(request, timecard_id):
     If POST, timecard_id, mark timecard as reviewed.
     """
     if request.method == "POST":
-        tc = Timecard.objects.get(pk=timecard_id)
-        tc.reviewed = True
-        tc.save()
+        timecard = Timecard.objects.get(pk=timecard_id)
+        timecard.reviewed = True
+        timecard.save()
 
-        return HttpResponseRedirect('/kronos/')
+        return HttpResponseRedirect('/kronos/timecards/')
     else:
         try:
-            tc = Timecard.objects.get(pk=timecard_id)
-            tasks = Task.objects.all().filter(timecard=tc).order_by('date')
+            timecard = Timecard.objects.get(pk=timecard_id)
+            tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
         except Timecard.DoesNotExist:
             raise Http404("Timecard does not exist.")
         return render(request, 'kronos/timecard_review.html', {
-            'timecard': tc,
+            'timecard': timecard,
             'tasks': tasks
             })
 
@@ -108,10 +125,10 @@ def timecard_complete_index(request):
     Return a list of completed timecards.
     """
     try:
-        tc = Timecard.objects.order_by('-pay_period_start').filter(complete=True, employee=request.user)
+        timecard = Timecard.objects.order_by('-pay_period').filter(complete=True, employee=request.user)
     except Timecard.DoesNotExist:
         raise Http404("No timecards does not exist.")
-    return render(request, 'kronos/timecard_complete.html', {'timecards': tc})
+    return render(request, 'kronos/timecard_complete.html', {'timecards': timecard})
 
 @permission_required('kronos.can_review_timecards')
 @login_required(login_url="/login/")
@@ -120,10 +137,10 @@ def timecard_index(request):
     Return a list of all timecards.
     """
     try:
-        tcs = Timecard.objects.order_by('-pay_period_start')
-    except Timecard.DoesNotExist:
+        pay_period= PayPeriod.objects.order_by('-start')
+    except PayPeriod.DoesNotExist:
         raise Http404("Timecards do not exist.")
-    return render(request, 'kronos/timecard_index.html', {'timecards': tcs})
+    return render(request, 'kronos/timecard_index.html', {'pay_periods': pay_period})
 
 @login_required(login_url="/login/")
 def timecard_update(request, timecard_id):
@@ -137,14 +154,17 @@ def task_add(request, timecard_id):
     if request.method == "POST":
         employee = request.POST["employee"]
         date = request.POST["date"]
-        pr = request.POST["project"]
+        project_id = request.POST["project"]
         description = request.POST["description"]
         start_time = request.POST["start_time"]
         end_time = request.POST["end_time"]
         labor_item_id = request.POST["labor_item_number"]
         li_class_id = request.POST["li_class"]
 
-        project = hq_models.Project.objects.get(id=pr)
+        started = "%s %s" % (date, start_time)
+        finished = "%s %s" % (date, end_time)
+
+        project = hq_models.Project.objects.get(id=project_id)
         user = User.objects.get(id=employee)
         timecard = Timecard.objects.get(id=timecard_id)
         labor_item = LaborItem.objects.get(id=labor_item_id)
@@ -153,11 +173,10 @@ def task_add(request, timecard_id):
         t = Task.objects.create(
             employee=user,
             timecard=timecard,
-            date = date,
             project = project,
             description = description,
-            start_time = start_time,
-            end_time = end_time,
+            started = started,
+            finished = finished,
             labor_item_number = labor_item,
             li_class = li_class
             )
@@ -168,9 +187,9 @@ def task_add(request, timecard_id):
     else:
         li_classes = LaborClass.objects.all()
         labor_groups = LaborGroup.objects.all()
-        p = hq_models.Project.objects.all().filter(archived=False)
+        projects = hq_models.Project.objects.all().filter(archived=False)
         return render(request, 'kronos/task_add.html', {
-            'projects': p,
+            'projects': projects,
             'timecard_id': timecard_id,
             'labor_groups': labor_groups,
             'li_classes': li_classes
@@ -188,15 +207,81 @@ def timecard_delete(request, timecard_id):
 @login_required(login_url="/login/")
 def task_detail(request, timecard_id, task_id):
     try:
-        tc = Timecard.objects.get(pk=timecard_id)
+        timecard = Timecard.objects.get(pk=timecard_id)
         task = Task.objects.get(pk=task_id)
     except Timecard.DoesNotExist:
-        raise Http404("Task does not exist.")
+        raise Http404("Task or Timecard do not exist.")
     return render(request, 'kronos/task_detail.html', {
-        'timecard': tc,
+        'timecard': timecard,
         'task': task
         })
 
+<<<<<<< HEAD
+=======
+@login_required(login_url="/login/")
+def task_update(request, timecard_id, task_id):
+    """/kronos/1/task/1/update/
+    Updates task with id.
+    """
+    if request.method == "POST":
+
+        date = request.POST["date"]
+        project_id = request.POST["project"]
+        description = request.POST["description"]
+        start_time = request.POST["start_time"]
+        end_time = request.POST["end_time"]
+        labor_item_id = request.POST["labor_item_number"]
+        li_class_id = request.POST["li_class"]
+
+        started = "%s %s" % (date, start_time)
+        finished = "%s %s" % (date, end_time)
+
+        project = hq_models.Project.objects.get(pk=project_id)
+        labor_item = LaborItem.objects.get(pk=labor_item_id)
+        li_class = LaborClass(pk=li_class_id)
+
+        task = Task.objects.get(pk=task_id)
+        
+        task.project = project
+        task.description = description
+        task.started = started
+        task.finished = finished
+        task.labor_item_number = labor_item
+        task.li_class = li_class
+        
+        task.save()
+
+        return HttpResponseRedirect('/kronos/%s/task/%s' % (timecard_id, task_id))
+    else:
+        timecard = Timecard.objects.get(pk=timecard_id)
+        task = Task.objects.get(pk=task_id)
+        li_classes = LaborClass.objects.all()
+        labor_groups = LaborGroup.objects.all()
+        projects = hq_models.Project.objects.all().filter(archived=False)
+        return render(request, 'kronos/task_update.html', {
+            'timecard': timecard,
+            'task': task,
+            'projects': projects,
+            'labor_groups': labor_groups,
+            'li_classes': li_classes
+            })
+
+@login_required(login_url="/login/")
+def task_copy(request, timecard_id, task_id):
+    """/kronos/1/task/1/delete/
+    Copy task with id, replace times with today
+    """
+    t = Task.objects.get(pk=task_id)
+    t.pk = None
+
+    today = datetime.datetime.now()
+    
+    t.started = t.started.replace(year=today.year, month=today.month, day=today.day)
+    t.finished = t.finished.replace(year=today.year, month=today.month, day=today.day)
+    t.save()
+    return HttpResponseRedirect('/kronos/%s/' % (timecard_id))
+
+>>>>>>> develop
 @login_required(login_url="/login/")
 def task_delete(request, timecard_id, task_id):
     """/kronos/1/task/1/delete/
@@ -204,4 +289,4 @@ def task_delete(request, timecard_id, task_id):
     """
     t = Task.objects.get(pk=task_id)
     t.delete()
-    return HttpResponseRedirect('/kronos/') 
+    return HttpResponseRedirect('/kronos/%s' % (timecard_id))

@@ -2,11 +2,21 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from atom.models import LaborItem, LaborClass
+<<<<<<< HEAD
+=======
+
+class PayPeriod(models.Model):
+    start = models.DateField()
+    end = models.DateField()
+
+    def __str__(self):
+        return "%s through %s." % (self.start,
+            self.end)
+>>>>>>> develop
 
 class Timecard(models.Model):
     employee = models.ForeignKey(User)
-    pay_period_start = models.DateField()
-    pay_period_end = models.DateField()
+    pay_period = models.ForeignKey(PayPeriod)
     submission_notes = models.TextField(blank=True)
     complete = models.BooleanField(default=False)
     reviewed = models.BooleanField(default=False)
@@ -23,13 +33,17 @@ class Timecard(models.Model):
 
     @property
     def is_past_due(self):
+<<<<<<< HEAD
         if datetime.date.today() > self.pay_period_end:
+=======
+        if datetime.date.today() > self.pay_period.end:
+>>>>>>> develop
             return True
         return False
 
     def __str__(self):
-        return "Pay-period %s through %s." % (self.pay_period_start,
-            self.pay_period_end)
+        return "%s, %s through %s." % (self.employee.first_name, self.pay_period.start,
+            self.pay_period.end)
 
     class Meta:
         permissions = (
@@ -39,11 +53,10 @@ class Timecard(models.Model):
 class Task(models.Model):
     timecard = models.ForeignKey(Timecard)
     employee = models.ForeignKey(User)
-    date = models.DateField()
     project = models.ForeignKey('hq.Project')
     description = models.TextField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    started = models.DateTimeField()
+    finished = models.DateTimeField()
     labor_item_number = models.ForeignKey(LaborItem)
     li_class = models.ForeignKey(LaborClass)
     created = models.DateTimeField(auto_now_add=True)
@@ -51,7 +64,17 @@ class Task(models.Model):
 
     def get_task_duration(self):
         """Return the task duration in hours as a float"""
+<<<<<<< HEAD
         return (self.end_time - self.start_time).seconds / 3600
 
     def __str__(self):
         return self.description
+=======
+        duration = round((self.finished - self.started).seconds / 3600, 2)
+        if duration > 8:
+            return duration - 0.5
+        return duration
+
+    def __str__(self):
+        return "%s, %s (%s)" % (self.employee.first_name, self.description, self.started)
+>>>>>>> develop
