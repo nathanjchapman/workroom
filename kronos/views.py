@@ -124,7 +124,7 @@ def timecard_index(request):
     Return a list of all timecards.
     """
     try:
-        pay_period= PayPeriod.objects.order_by('-start')
+        pay_period= PayPeriod.objects.order_by('-start')[:3]
     except PayPeriod.DoesNotExist:
         raise Http404("Timecards do not exist.")
     return render(request, 'kronos/timecard_index.html', {'pay_periods': pay_period})

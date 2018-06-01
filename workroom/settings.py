@@ -25,7 +25,7 @@ SECRET_KEY = 'ssvn$_^nfy-psrb9la83h@dg0hg=wbq^jo-y%wm=f3%t-(4+_s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['nathanjc.pythonanywhere.com']
+ALLOWED_HOSTS = ['tc.wallyworks.net']
 
 
 # Application definition
@@ -117,9 +117,16 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-DEFAULT_FROM_EMAIL = 'webmaster@wallyworks.net'
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "wallyworks.net"
+EMAIL_HOST_USER = "webmaster@wallyworks.net"
+EMAIL_HOST_PASSWORD = 'DrgNlAkh0Unuqlu3N73a'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "webmaster@wallyworks.net"
+SERVER_EMAIL = 'contact@wallyworks.net'
+
 LOGIN_REDIRECT_URL = '/kronos/'
 LOGOUT_URL = '/login/'
 LOGIN_URL = '/login/'
