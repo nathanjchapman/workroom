@@ -1,12 +1,12 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.overview, name="overview"),
-    url(r'^door/add/$', views.door_add, name="door_add"),
-    url(r'^code/add/$', views.code_add, name="code_add"),
-    url(r'^code/(?P<code_id>[0-9]+)/', include([
-        url(r'^$', views.code_detail, name="code_detail"),
-        url(r'^delete/$', views.code_delete, name="code_delete"),
+    path('', views.overview, name="overview"),
+    path('door/add/', views.door_add, name="door_add"),
+    path('code/add/', views.code_add, name="code_add"),
+    path('code/<int:code_id>/', include([
+        path('', views.code_detail, name="code_detail"),
+        path('delete/', views.code_delete, name="code_delete"),
         ])),
 ]

@@ -1,25 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-    <h1>Timecard</h1>
-    <section>
-        <h4>Task Details</h4>
-        <hr>
-        <p>
-            {{ task.date }}<br>
-            {{ task.start_time }} to {{ task.end_time }}<br>
-            {{ task.project.name }} project</p>
-        <blockquote>{{ task.description }}</blockquote>
-        <p>LI number: <strong>{{ task.labor_item_number }}</strong></p>
-        <p>L&I class: <strong>{{ task.li_class }}</strong></p>
-    </section>
-    <section>
-        {{ get_task_duration }}
-    </section>
-    <section>
-        <a class="delete" href="{% url 'kronos:task_delete' timecard.id task.id %}">x delete this task</a>
-=======
     <div class="backlink">
         <span>←</span>
         <a href="{% url 'kronos:timecard_detail' timecard.id %}">Back to timecard</a>
@@ -70,6 +51,5 @@
                 </tr>
             </tbody>
         </table>
->>>>>>> develop
     </section>
 {% endblock %}

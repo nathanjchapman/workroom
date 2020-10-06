@@ -49,28 +49,12 @@
                         <td>{{ task.started|date:"g:i A" }}</td>
                         <td>{{ task.finished|date:"g:i A" }}</td>
                         <td>{{ task.li_class.number }}</td>
-<<<<<<< HEAD
-                        <td>{{ get_task_duration }}</td>
-=======
                         <td>{{ task.get_task_duration }} hrs.</td>
->>>>>>> develop
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-<<<<<<< HEAD
-
-            <p>
-                {{ timecard.get_total_tasks_duration }}
-            </p>
-        {% endif %}
-        {% if not timecard.complete %}
-            <p>
-                <a class="action-button" href="{% url 'kronos:task_add' timecard.id %}">+ Add new Task</a>
-            </p>
-=======
             <p class="total-hours"><strong>Total hours: {{ timecard.get_total_tasks_duration }}</strong></p>
->>>>>>> develop
         {% endif %}
     </section>
     {% if not timecard.complete %}

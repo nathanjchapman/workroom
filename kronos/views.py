@@ -14,13 +14,7 @@ def overview(request):
     """/kronos/
     Return overview render.
     """
-<<<<<<< HEAD
-    tcss = Timecard.objects.all().filter(employee=request.user)
-    tcs = tcss.filter(complete=False)
-    ctcs = tcss.order_by('-pay_period_start').filter(complete=True)[:3]
-=======
     timecards = Timecard.objects.all().filter(employee=request.user, complete=False)
->>>>>>> develop
     return render(request, 'kronos/overview.html', {
         'timecards': timecards
         })
@@ -31,17 +25,9 @@ def timecard_add(request):
     If POST, process data and create timecard.
     """
     if request.method == "POST":
-<<<<<<< HEAD
-        pay_period_start = request.POST["pay_period_start"]
-        pay_period_end = request.POST["pay_period_end"]
-
-        tc = Timecard.objects.create(
-=======
         p = request.POST["pay_period"]
         pay_period = PayPeriod.objects.get(pk=p)
-
         timecard = Timecard.objects.create(
->>>>>>> develop
             employee=request.user,
             pay_period=pay_period
             )
@@ -58,13 +44,8 @@ def timecard_detail(request, timecard_id):
     """/kronos/1/
     Return timecard detail render.
     """
-<<<<<<< HEAD
-    tc = Timecard.objects.get(pk=timecard_id)
-    tasks = Task.objects.all().filter(timecard=tc).order_by('date')
-=======
     timecard = Timecard.objects.get(pk=timecard_id)
     tasks = Task.objects.all().filter(timecard=timecard).order_by('started')
->>>>>>> develop
 
     return render(request, 'kronos/timecard_detail.html', {
         'timecard': timecard,
@@ -216,8 +197,7 @@ def task_detail(request, timecard_id, task_id):
         'task': task
         })
 
-<<<<<<< HEAD
-=======
+
 @login_required(login_url="/login/")
 def task_update(request, timecard_id, task_id):
     """/kronos/1/task/1/update/
@@ -281,7 +261,7 @@ def task_copy(request, timecard_id, task_id):
     t.save()
     return HttpResponseRedirect('/kronos/%s/' % (timecard_id))
 
->>>>>>> develop
+
 @login_required(login_url="/login/")
 def task_delete(request, timecard_id, task_id):
     """/kronos/1/task/1/delete/

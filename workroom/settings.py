@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.urls import reverse_lazy
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,34 +26,33 @@ SECRET_KEY = 'ssvn$_^nfy-psrb9la83h@dg0hg=wbq^jo-y%wm=f3%t-(4+_s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nathanjc.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
+    'hq.apps.HQConfig',
+    'kronos.apps.KronosConfig',
+    'atom.apps.AtomConfig',
+    'stronghold.apps.StrongholdConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hq',
-    'kronos',
-    'atom',
-    'stronghold',
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+]
 
 ROOT_URLCONF = 'workroom.urls'
 
@@ -79,18 +79,18 @@ WSGI_APPLICATION = 'workroom.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nathanjc$default',
-        'USER': 'nathanjc',
-        'PASSWORD': 'weight-pickax-sparrow',
-        'HOST': 'nathanjc.mysql.pythonanywhere-services.com',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'nathanjc$default',
+    #     'USER': 'nathanjc',
+    #     'PASSWORD': 'weight-pickax-sparrow',
+    #     'HOST': 'nathanjc.mysql.pythonanywhere-services.com',
+    #     'PORT': '',
+    # }
 }
 
 
@@ -117,12 +117,19 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-DEFAULT_FROM_EMAIL = 'webmaster@wallyworks.net'
-LOGIN_REDIRECT_URL = '/kronos/'
-LOGOUT_URL = '/login/'
-LOGIN_URL = '/login/'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'cnathan036@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+# DEFAULT_FROM_EMAIL = 'nathanchapman@hey.com'
+
+LOGIN_REDIRECT_URL = reverse_lazy('kronos:overview')
+LOGIN_URL = reverse_lazy('login')
 
 # SECURE_HSTS_SECONDS = 30
 # SECURE_CONTENT_TYPE_NOSNIFF = True

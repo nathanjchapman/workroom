@@ -13,15 +13,17 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.urls import include, path
+from django.contrib.auth import views as auth_views
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('django.contrib.auth.urls')),
-    url(r'^kronos/', include('kronos.urls', namespace="kronos")),
-    url(r'^atom/', include('atom.urls', namespace="atom")),
-    url(r'^hq/', include('hq.urls', namespace="hq")),
-    url(r'^stronghold/', include('stronghold.urls', namespace="stronghold")),
-    url(r'^admin/', include(admin.site.urls)),
+    path('accounts/', include('django.contrib.auth.urls')),
+    
+    path('kronos/', include(('kronos.urls', 'kronos'), namespace='kronos')),
+    path('atom/', include(('atom.urls', 'atom'), namespace='atom')),
+    path('hq/', include(('hq.urls', 'hq'), namespace='hq')),
+    path('stronghold/', include(('stronghold.urls', 'stronghold'), namespace='stronghold')),
+    path('admin/', admin.site.urls),
 ]
 

@@ -8,7 +8,7 @@ class LaborGroup(models.Model):
         return "%d - %s" % (self.number, self.name)
 
 class LaborItem(models.Model):
-    group = models.ForeignKey(LaborGroup)
+    group = models.ForeignKey(LaborGroup, on_delete=models.CASCADE)
     number = models.IntegerField()
     description = models.CharField(max_length=72)
 

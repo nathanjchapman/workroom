@@ -1,17 +1,17 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.overview, name="overview"),
-    url(r'^project/add/$', views.project_add, name="project_add"),
-    url(r'^project/(?P<project_id>[0-9]+)/', include([
-        url(r'^$', views.project_detail, name="project_detail"),
-        url(r'^archive/$', views.project_archive, name="project_archive"),
-        url(r'^delete/$', views.project_delete, name="project_delete"),
+    path('', views.overview, name="overview"),
+    path('project/add/', views.project_add, name="project_add"),
+    path('project/<int:project_id>/', include([
+        path('', views.project_detail, name="project_detail"),
+        path('archive/', views.project_archive, name="project_archive"),
+        path('delete/', views.project_delete, name="project_delete"),
         ])),
-    url(r'^address/add/$', views.address_add, name="address_add"),
-    url(r'^address/(?P<address_id>[0-9]+)/', include([
-        url(r'^$', views.address_detail, name="address_detail"),
-        url(r'^delete/$', views.address_delete, name="address_delete"),
+    path('address/add/', views.address_add, name="address_add"),
+    path('address/<int:address_id>', include([
+        path('', views.address_detail, name="address_detail"),
+        path('delete/', views.address_delete, name="address_delete"),
         ])),
 ]
